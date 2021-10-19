@@ -2,7 +2,6 @@ package dataStructureTrees;
 
 import java.util.ArrayList;
 
-import model.Node;
 
 public class BinaryTree<T,E> {
 	private Node<T,E> root;
