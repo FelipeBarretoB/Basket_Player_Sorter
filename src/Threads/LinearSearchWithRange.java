@@ -26,7 +26,7 @@ public class LinearSearchWithRange extends Thread{
 	
 	@Override
 	public void run() {	
-		appManager.linearSearchWithRange(min, max, search);
+		searchedPlayers=appManager.linearSearchWithRange(min, max, search);
 	}
 	
 }

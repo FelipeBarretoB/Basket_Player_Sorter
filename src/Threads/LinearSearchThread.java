@@ -24,7 +24,7 @@ public class LinearSearchThread extends Thread{
 	
 	@Override
 	public void run() {	
-		appManager.linearSearch(search, searchedFor);
+		searchedPlayers=appManager.linearSearch(search, searchedFor);
 	}
 	
 }

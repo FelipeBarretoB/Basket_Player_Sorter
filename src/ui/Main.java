@@ -22,6 +22,7 @@ public class Main {
 		}
 		ui.app.callLinearSearch("name", "Tori");
 		ui.app.callLinearSearchWithRange(20, 22, "age");
+		ui.app.callCreatBinarySearchTreeThread();
 		//Object pera; meme con un amigo mio 
 
 		

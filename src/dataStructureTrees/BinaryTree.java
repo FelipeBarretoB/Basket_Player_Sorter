@@ -1,26 +1,28 @@
 package dataStructureTrees;
 
-public class BinaryTree<T> {
-	private Node<T> root;
+
+
+public class BinaryTree<T,E> {
+	private Node<T,E> root;
 	
 	public BinaryTree() {
 		
 	}
 
-	public Node<T> getRoot() {
+	public Node<T,E> getRoot() {
 		return root;
 	}
 
-	public void setRoot(Node<T> root) {
+	public void setRoot(Node<T,E> root) {
 		this.root = root;
 	}
 	
 	// -------------------------------------- //
 	
-	public void insert(T el) {
-		Node<T> node = new Node<>(el);
-		Node<T> temp = null;
-		Node<T> current = root;
+	public void insert(T el, E player) {
+		Node<T,E> node = new Node<>(el, player);
+		Node<T,E> temp = null;
+		Node<T,E> current = root;
 		while (current != null) {
 			temp = current;
 			if (node.getVal().hashCode() < current.getVal().hashCode()/*node.compareTo(current.getVal()) < 0*/) {
@@ -51,11 +53,12 @@ public class BinaryTree<T> {
 		}*/
 	}
 	
-	public Node<T> search(T el) {
-		Node<T> node = new Node<>(el);
-		Node<T> current = root;
+	public Node<T,E> search(T el, E player) {
+		Node<T,E> node = new Node<>(el, player);
+		Node<T,E> current = root;
 		boolean notFound = false;
 		if (root != null) {
+		
 			while (current != null && !notFound) {
 				// If it's the number
 				if (node.compareTo(current.getVal()) == 0) {
@@ -74,15 +77,15 @@ public class BinaryTree<T> {
 		return current;
 	}
 	
-	public Node<T> treeMinimum(Node<T> node) {
+	public Node<T,E> treeMinimum(Node<T,E> node) {
 		while (node.getLeft() != null) {
 			node = node.getLeft();
 		}
 		return node;
 	}
 	
-	public Node<T> treeSuccessor(Node<T> node) {
-		Node<T> temp = null;
+	public Node<T,E> treeSuccessor(Node<T,E> node) {
+		Node<T,E> temp = null;
 		if (node.getRight() != null) {
 			return treeMinimum(node.getRight());
 		}
@@ -94,10 +97,11 @@ public class BinaryTree<T> {
 		return temp;
 	}
 	
-	public Node<T> delete(T el) {
-		Node<T> node = search(el);
-		Node<T> temp = null;
-		Node<T> current = null;
+	/*
+	public Node<T,E> delete(T el) {
+		Node<T,E> node = search(el);
+		Node<T,E> temp = null;
+		Node<T,E> current = null;
 		if (node.getLeft() == null || node.getRight() == null) {
 			temp = node;
 		} else {
@@ -128,8 +132,9 @@ public class BinaryTree<T> {
 		
 		return temp;
 	}
+	*/
 	// InOrder
-	public void printTree(Node<T> root) {
+	public void printTree(Node<T,E> root) {
 		if (root == null) {
 			return;
 		}

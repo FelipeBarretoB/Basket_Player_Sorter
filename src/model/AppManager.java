@@ -5,21 +5,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import Threads.CreateBinarySearchTreeThread;
 import Threads.ImportDataBaseThread;
 import Threads.LinearSearchThread;
 import Threads.LinearSearchWithRange;
+import dataStructureTrees.BinaryTree;
 
 public class AppManager {
-	
+
 	private List<Player> players;
 	private ImportDataBaseThread importDataBaseThread;
 	private LinearSearchThread linearSearchThread;
 	private LinearSearchWithRange linearSearchWithRange;
+	private List<BinaryTree<Integer, Player>> binarySearchTrees;
+	private CreateBinarySearchTreeThread createBinarySearchTree;
 
 	public AppManager(){
 		players=new ArrayList<>();
 		importDataBaseThread= new ImportDataBaseThread(this);
+		binarySearchTrees= new ArrayList<>();
+
 	}
 
 	public void callImportDataBase() {
@@ -39,7 +44,7 @@ public class AppManager {
 		br.close();
 	}
 
-	
+
 	public ArrayList<Player> callLinearSearch(String search, String searchedFor){
 		linearSearchThread= new LinearSearchThread(this, search,  searchedFor);
 		linearSearchThread.start();
@@ -47,7 +52,7 @@ public class AppManager {
 		while(linearSearchThread.isAlive()) {}
 		return linearSearchThread.getPlayers();
 	}
-	
+
 	public ArrayList<Player> callLinearSearchWithRange(int min, int max,String search){
 		linearSearchWithRange = new LinearSearchWithRange(this, min, max, search);
 		linearSearchWithRange.start();
@@ -55,30 +60,50 @@ public class AppManager {
 		while(linearSearchWithRange.isAlive()) {}
 		return linearSearchWithRange.getPlayers();
 	}
-	
-		
-	
+
+
+
 	public ArrayList<Player> linearSearch(String search, String searchedFor){
 		ArrayList<Player> searchedPlayers= new ArrayList<>();
 		for(int c=0;c< players.size();c++) {
 			if(players.get(c).get(search).equalsIgnoreCase(searchedFor)) {
-				System.out.println(players.get(c).get(search));
 				searchedPlayers.add(players.get(c));
 			}
 		}
 		return searchedPlayers;
 	}
-	
-	
+
+
 	public ArrayList<Player> linearSearchWithRange(int min, int max,String search) {
 		ArrayList<Player> searchedPlayers= new ArrayList<>();
 		for(int c=0;c< players.size();c++) {
 			if(Integer.parseInt(players.get(c).get(search))>=min && Integer.parseInt(players.get(c).get(search))<=max) {
-				System.out.println(players.get(c).get(search));
 				searchedPlayers.add(players.get(c));
 			}
 		}
 		return searchedPlayers;
+	}
+
+	public void creatBinarySearchTree() {
+		int i=0;
+		String[] values= {"age","points","reBounds","blocks"};
+		while(i<4) {
+			
+			for(int c=0;c<players.size();c++) {
+				binarySearchTrees.add(new BinaryTree<Integer, Player>());
+				binarySearchTrees.get(i).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
+			}
+			
+			i++;
+		}
+		System.out.println(binarySearchTrees.get(1).search(98, null).getPlayer().getName());
+		
+		//System.out.println(binarySearchTrees.get(0).getRoot().getVal()+" "+binarySearchTrees.get(1).getRoot().getVal()+" "+binarySearchTrees.get(2).getRoot().getVal()+" "+binarySearchTrees.get(3).getRoot().getVal());
+	}
+
+	public void callCreatBinarySearchTreeThread() {
+		createBinarySearchTree= new CreateBinarySearchTreeThread(this);
+		createBinarySearchTree.start();
 	}
 }
 

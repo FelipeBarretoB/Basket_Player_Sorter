@@ -1,14 +1,18 @@
 package dataStructureTrees;
 
-public class Node<T> implements Comparable<T>{
+
+
+public class Node<T,E> implements Comparable<T>{
 	
+	private E player;
 	private T val;
-	private Node<T> left;
-	private Node<T> right;
-	private Node<T> parent;
+	private Node<T,E> left;
+	private Node<T,E> right;
+	private Node<T,E> parent;
 	
-	public Node(T el) {
+	public Node(T el, E player) {
 		val = el;
+		this.player=player;
 	}
 
 	public T getVal() {
@@ -19,28 +23,36 @@ public class Node<T> implements Comparable<T>{
 		this.val = val;
 	}
 
-	public Node<T> getLeft() {
+	public Node<T,E> getLeft() {
 		return left;
 	}
 
-	public void setLeft(Node<T> left) {
+	public void setLeft(Node<T,E> left) {
 		this.left = left;
 	}
 
-	public Node<T> getRight() {
+	public Node<T,E> getRight() {
 		return right;
 	}
 
-	public void setRight(Node<T> right) {
+	public void setRight(Node<T,E> right) {
 		this.right = right;
 	}
 
-	public Node<T> getParent() {
+	public Node<T,E> getParent() {
 		return parent;
 	}
 
-	public void setParent(Node<T> parent) {
+	public void setParent(Node<T,E> parent) {
 		this.parent = parent;
+	}
+
+	public E getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(E player) {
+		this.player = player;
 	}
 
 	@Override
