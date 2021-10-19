@@ -1,6 +1,8 @@
 package dataStructureTrees;
 
+import java.util.ArrayList;
 
+import model.Node;
 
 public class BinaryTree<T,E> {
 	private Node<T,E> root;
@@ -75,6 +77,18 @@ public class BinaryTree<T,E> {
 			return null;
 		}
 		return current;
+	}
+	
+	public ArrayList<Node<T,E>> getSameValueNodes(T el, E player){
+		Node<T,E> current = search(el,player);
+		ArrayList<Node<T,E>> nodes = new ArrayList<Node<T,E>>();
+		nodes.add(current);
+		
+		while (current.getRight() != null && current.getVal().hashCode() == current.getRight().getVal().hashCode()) {
+			current = current.getRight();
+			nodes.add(current);
+		}
+		return nodes;
 	}
 	
 	public Node<T,E> treeMinimum(Node<T,E> node) {
