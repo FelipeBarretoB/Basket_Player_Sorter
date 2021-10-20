@@ -89,14 +89,18 @@ public class AppManager {
 		String[] values= {"age","points","reBounds","blocks"};
 		while(i<4) {
 			
+			binarySearchTrees.add(new BinaryTree<Integer, Player>());
 			for(int c=0;c<players.size();c++) {
-				binarySearchTrees.add(new BinaryTree<Integer, Player>());
 				binarySearchTrees.get(i).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
 			}
 			
 			i++;
 		}
+		long first = System.currentTimeMillis();
 		System.out.println(binarySearchTrees.get(1).search(98, null).getPlayer().getName());
+		long second = System.currentTimeMillis();
+		System.out.println(first);
+		System.out.println(second);
 		
 		//System.out.println(binarySearchTrees.get(0).getRoot().getVal()+" "+binarySearchTrees.get(1).getRoot().getVal()+" "+binarySearchTrees.get(2).getRoot().getVal()+" "+binarySearchTrees.get(3).getRoot().getVal());
 	}

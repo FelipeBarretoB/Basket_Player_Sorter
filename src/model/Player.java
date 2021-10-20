@@ -111,7 +111,18 @@ public class Player {
 		this.steals = steals;
 	}
 
-
+	@Override
+	public String toString() {
+		String message = "\nName: " + name + "\n" +
+		"Team: " + team + "\n" + 
+		"Age: " + age + "\n" +
+		"Points: " + points + "\n" +
+		"Rebounds: " + reBounds + "\n" +
+		"Blocks: " + blocks + "\n" +
+		"Assists: " + assists + "\n" +
+		"Steals: " + steals + "\n";
+		return message;
+	}
 
 
 }

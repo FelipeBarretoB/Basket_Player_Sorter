@@ -20,8 +20,8 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ui.app.callLinearSearch("name", "Tori");
-		ui.app.callLinearSearchWithRange(20, 22, "age");
+		//System.out.println(ui.app.callLinearSearch("name", "Tori"));
+		//System.out.println(ui.app.callLinearSearchWithRange(20, 22, "age"));
 		ui.app.callCreatBinarySearchTreeThread();
 		//Object pera; meme con un amigo mio 
 
