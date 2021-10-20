@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="494.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="261.0" layoutY="24.0" text="List of Players">
+         <font>
+            <Font name="Franklin Gothic Medium Cond" size="30.0" />
+         </font>
+      </Label>
+      <TableView layoutX="20.0" layoutY="87.0" prefHeight="363.0" prefWidth="633.0">
+         <columns>
+            <TableColumn prefWidth="75.0" text="Name" />
+            <TableColumn text="Team" />
+            <TableColumn prefWidth="72.0" text="Age" />
+            <TableColumn prefWidth="79.0" text="Points" />
+            <TableColumn prefWidth="77.0" text="Rebounds" />
+            <TableColumn text="Blocks" />
+            <TableColumn prefWidth="70.0" text="Assists" />
+            <TableColumn prefWidth="99.0" text="Steals" />
+         </columns>
+      </TableView>
+   </children>
+</Pane>
