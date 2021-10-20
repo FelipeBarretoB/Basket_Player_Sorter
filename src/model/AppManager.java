@@ -85,8 +85,9 @@ public class AppManager {
 	}
 
 	public void creatBinarySearchTree() {
-		int i=0;
+			int i=0;
 		String[] values= {"age","points","reBounds","blocks"};
+		double first = System.nanoTime();
 		while(i<4) {
 			
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
@@ -96,11 +97,12 @@ public class AppManager {
 			
 			i++;
 		}
-		long first = System.currentTimeMillis();
+		double second = System.nanoTime();
+		System.out.println((second - first)/1000000000 + "-- Creation time for the 4 trees (Seconds)");
+		double searchOne = System.nanoTime();
 		System.out.println(binarySearchTrees.get(1).search(98, null).getPlayer().getName());
-		long second = System.currentTimeMillis();
-		System.out.println(first);
-		System.out.println(second);
+		double searchTwo = System.nanoTime();
+		System.out.println((searchTwo - searchOne)/1000000000 + " -- Search Time (Seconds)");
 		
 		//System.out.println(binarySearchTrees.get(0).getRoot().getVal()+" "+binarySearchTrees.get(1).getRoot().getVal()+" "+binarySearchTrees.get(2).getRoot().getVal()+" "+binarySearchTrees.get(3).getRoot().getVal());
 	}
