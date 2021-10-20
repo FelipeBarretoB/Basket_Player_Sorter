@@ -83,6 +83,32 @@ public class AppManager {
 		}
 		return searchedPlayers;
 	}
+	
+	public Player searchWithTree(String search, int searchedFor) {
+		int index = 0;
+		switch (search) {
+			case "age":
+				index = 0;
+				break;
+			case "points":
+				index = 1;
+				break;
+			case "reBounds":
+				index = 2;
+				break;
+			case "blocks":
+				index = 3;
+				break;
+			default:
+				index = -1;
+				break;
+		}
+		Player pl = null;
+		if (index != -1) {
+			pl = binarySearchTrees.get(index).search(searchedFor, null).getPlayer();
+		}
+		return pl;
+	}
 
 	public void creatBinarySearchTree() {
 			int i=0;
@@ -105,6 +131,7 @@ public class AppManager {
 		System.out.println((searchTwo - searchOne)/1000000000 + " -- Search Time (Seconds)");
 		
 		//System.out.println(binarySearchTrees.get(0).getRoot().getVal()+" "+binarySearchTrees.get(1).getRoot().getVal()+" "+binarySearchTrees.get(2).getRoot().getVal()+" "+binarySearchTrees.get(3).getRoot().getVal());
+		System.out.println(searchWithTree("age", 20));
 	}
 
 	public void callCreatBinarySearchTreeThread() {

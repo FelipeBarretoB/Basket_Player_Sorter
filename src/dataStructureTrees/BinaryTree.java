@@ -79,6 +79,7 @@ public class BinaryTree<T,E> {
 	}
 	
 	public ArrayList<Node<T,E>> getSameValueNodes(T el, E player){
+		//TODO Creo que no está del todo bien el método
 		Node<T,E> current = search(el,player);
 		ArrayList<Node<T,E>> nodes = new ArrayList<Node<T,E>>();
 		nodes.add(current);
