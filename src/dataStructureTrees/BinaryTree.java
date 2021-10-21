@@ -111,9 +111,9 @@ public class BinaryTree<T,E> {
 		return temp;
 	}
 	
-	/*
-	public Node<T,E> delete(T el) {
-		Node<T,E> node = search(el);
+	
+	public Node<T,E> delete(T el, E Player) {
+		Node<T,E> node = search(el,Player);
 		Node<T,E> temp = null;
 		Node<T,E> current = null;
 		if (node.getLeft() == null || node.getRight() == null) {
@@ -146,7 +146,7 @@ public class BinaryTree<T,E> {
 		
 		return temp;
 	}
-	*/
+	
 	// InOrder
 	public void printTree(Node<T,E> root) {
 		if (root == null) {

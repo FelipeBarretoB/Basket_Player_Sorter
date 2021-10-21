@@ -33,12 +33,13 @@ public class Main extends Application{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
+		//ui.app.test();
 		//System.out.println(ui.app.callLinearSearch("name", "Tori"));
 		//System.out.println(ui.app.callLinearSearchWithRange(20, 22, "age"));
 		//ui.app.callCreatBinarySearchTreeThread();
 		//--Problem with thread and the time it takes to charge
 		//System.out.println(ui.app.searchWithTree("age", 20));
-		//Object pera; meme con un amigo mio 
+		
 	}
 
 	@Override

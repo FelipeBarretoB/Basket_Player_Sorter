@@ -40,9 +40,9 @@ public class AppManager {
 			players.add(currentPlayer);
 			line=br.readLine();
 		}
-		System.out.println(players.size());
 		br.close();
 	}
+
 
 
 	public ArrayList<Player> callLinearSearch(String search, String searchedFor){
@@ -62,7 +62,7 @@ public class AppManager {
 	}
 
 
-
+	//Todos los jugadores con el mismo dato (Aka, devuelve todos los jugadores con el mismo nombre)
 	public ArrayList<Player> linearSearch(String search, String searchedFor){
 		ArrayList<Player> searchedPlayers= new ArrayList<>();
 		for(int c=0;c< players.size();c++) {
@@ -73,7 +73,7 @@ public class AppManager {
 		return searchedPlayers;
 	}
 
-
+	//Todos los jugadores que se encuentren en el rango (Aka, devuelve todos los jugadores de la edad desde 18 a 20 [teniendo en cuenta 20])
 	public ArrayList<Player> linearSearchWithRange(int min, int max,String search) {
 		ArrayList<Player> searchedPlayers= new ArrayList<>();
 		for(int c=0;c< players.size();c++) {
@@ -83,44 +83,70 @@ public class AppManager {
 		}
 		return searchedPlayers;
 	}
-	
+
+	//Retorna el primer jugador que encuentre con un dato especifico 
+	public Player linearSearchForFirstPlayerWithValue(String search,String searchedFor) {
+		boolean found=false;
+		Player playerFound=null;
+		for(int c=0;c< players.size()&& !found;c++) {
+			if(players.get(c).get(search).equalsIgnoreCase(searchedFor)) {
+				found=true;
+				playerFound=players.get(c);
+			}
+		}
+		return playerFound;
+	}
+
 	public Player searchWithTree(String search, int searchedFor) {
 		int index = 0;
 		switch (search) {
-			case "age":
-				index = 0;
-				break;
-			case "points":
-				index = 1;
-				break;
-			case "reBounds":
-				index = 2;
-				break;
-			case "blocks":
-				index = 3;
-				break;
-			default:
-				index = -1;
-				break;
+		case "age":
+			index = 0;
+			break;
+		case "points":
+			index = 1;
+			break;
+		case "reBounds":
+			index = 2;
+			break;
+		case "blocks":
+			index = 3;
+			break;
+		default:
+			index = -1;
+			break;
 		}
 		Player pl = null;
 		if (index != -1) {
 			pl = binarySearchTrees.get(index).search(searchedFor, null).getPlayer();
+		}else {
+			pl = linearSearchForFirstPlayerWithValue(search, search);
 		}
 		return pl;
 	}
+	//indice de el player que se va a cambiar
+	//los nuevos datos del player (observe que son los mismos datos del constructor) 
+	public void modify(int index,String name,String team, int age, int points,int reBounds, int blocks, int assists, int steals ) {
+
+		Player modifiedPlayer=players.get(index);
+		Player newPlayer= new Player(name, team, age, points, reBounds, blocks, assists, steals);
+		players.remove(index);
+		players.add(index, newPlayer);
+		//Hasta aqui, solo funciona para la arraylist xd
+	}
+
 
 	public void creatBinarySearchTree() {
-			int i=0;
+		int i=0;
 		String[] values= {"age","points","reBounds","blocks"};
 		double first = System.nanoTime();
 		while(i<4) {
-			
+
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
 			for(int c=0;c<players.size();c++) {
 				binarySearchTrees.get(i).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
 			}
-			
+
 			i++;
 		}
 		double second = System.nanoTime();
@@ -129,9 +155,7 @@ public class AppManager {
 		System.out.println(binarySearchTrees.get(1).search(98, null).getPlayer().getName());
 		double searchTwo = System.nanoTime();
 		System.out.println((searchTwo - searchOne)/1000000000 + " -- Search Time (Seconds)");
-		
-		//System.out.println(binarySearchTrees.get(0).getRoot().getVal()+" "+binarySearchTrees.get(1).getRoot().getVal()+" "+binarySearchTrees.get(2).getRoot().getVal()+" "+binarySearchTrees.get(3).getRoot().getVal());
-		System.out.println(searchWithTree("age", 20));
+		//System.out.println(searchWithTree("age", 20));
 	}
 
 	public void callCreatBinarySearchTreeThread() {
