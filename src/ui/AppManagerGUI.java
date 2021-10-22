@@ -61,6 +61,7 @@ public class AppManagerGUI {
 		System.out.println("Fair enough!");
 		BinaryTree<Integer, Player> bt = appManager.getBinarySearchTrees().get(0);
 		System.out.println(bt.getRoot().getPlayer().toString());
+		System.out.println(bt.delete(32, null).getPlayer().toString());
 	}
 	
 	@FXML
