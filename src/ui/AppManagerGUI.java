@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 
+import dataStructureTrees.BinaryTree;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import model.AppManager;
+import model.Player;
 
 public class AppManagerGUI {
 	private AppManager appManager;
@@ -18,6 +20,12 @@ public class AppManagerGUI {
 	
 	public AppManagerGUI(AppManager app) {
 		appManager = app;
+		try {
+			appManager.importPlayerDataBase();
+			appManager.callCreatBinarySearchTreeThread();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -46,6 +54,13 @@ public class AppManagerGUI {
 		Parent pane = fxmlLoader.load();
 		mainPane.setCenter(pane);
 		
+	}
+	
+	@FXML
+	public void test(ActionEvent event) throws IOException {
+		System.out.println("Fair enough!");
+		BinaryTree<Integer, Player> bt = appManager.getBinarySearchTrees().get(0);
+		System.out.println(bt.getRoot().getPlayer().toString());
 	}
 	
 	@FXML

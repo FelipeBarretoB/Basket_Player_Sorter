@@ -162,5 +162,9 @@ public class AppManager {
 		createBinarySearchTree= new CreateBinarySearchTreeThread(this);
 		createBinarySearchTree.start();
 	}
+	
+	public List<BinaryTree<Integer, Player>> getBinarySearchTrees() {
+		return binarySearchTrees;
+	}
 }
 
