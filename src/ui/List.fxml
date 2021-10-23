@@ -13,16 +13,16 @@
             <Font name="Franklin Gothic Medium Cond" size="30.0" />
          </font>
       </Label>
-      <TableView layoutX="20.0" layoutY="87.0" prefHeight="363.0" prefWidth="633.0">
+      <TableView fx:id="tvPlayers" layoutX="20.0" layoutY="87.0" prefHeight="363.0" prefWidth="633.0">
          <columns>
-            <TableColumn prefWidth="75.0" text="Name" />
-            <TableColumn text="Team" />
-            <TableColumn prefWidth="72.0" text="Age" />
-            <TableColumn prefWidth="79.0" text="Points" />
-            <TableColumn prefWidth="77.0" text="Rebounds" />
-            <TableColumn text="Blocks" />
-            <TableColumn prefWidth="70.0" text="Assists" />
-            <TableColumn prefWidth="99.0" text="Steals" />
+            <TableColumn fx:id="tcPlayerName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="tcPlayerTeam" text="Team" />
+            <TableColumn fx:id="tcPlayerAge" prefWidth="72.0" text="Age" />
+            <TableColumn fx:id="tcPlayerPoints" prefWidth="79.0" text="Points" />
+            <TableColumn fx:id="tcPlayerRebounds" prefWidth="77.0" text="Rebounds" />
+            <TableColumn fx:id="tcPlayerBlocks" text="Blocks" />
+            <TableColumn fx:id="tcPlayerAssists" prefWidth="70.0" text="Assists" />
+            <TableColumn fx:id="tcPlayerSteals" prefWidth="99.0" text="Steals" />
          </columns>
       </TableView>
    </children>

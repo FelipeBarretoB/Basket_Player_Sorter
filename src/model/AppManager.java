@@ -141,7 +141,6 @@ public class AppManager {
 		String[] values= {"age","points","reBounds","blocks"};
 		double first = System.nanoTime();
 		while(i<4) {
-
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
 			for(int c=0;c<players.size();c++) {
 				binarySearchTrees.get(i).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
@@ -165,6 +164,10 @@ public class AppManager {
 	
 	public List<BinaryTree<Integer, Player>> getBinarySearchTrees() {
 		return binarySearchTrees;
+	}
+	
+	public List<Player> getPlayers(){
+		return players;
 	}
 }
 

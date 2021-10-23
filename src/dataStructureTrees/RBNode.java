@@ -1,9 +1,9 @@
 package dataStructureTrees;
 
-public class RBNode<T,E> extends Node {
+public class RBNode<T,E> extends Node<T, E> {
 	private Color color;
 	
-	@SuppressWarnings("unchecked")
+	
 	public RBNode(T el, E player) {
 		super(el,player);
 		this.color = Color.RED;

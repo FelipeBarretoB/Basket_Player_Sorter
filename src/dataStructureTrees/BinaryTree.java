@@ -80,14 +80,24 @@ public class BinaryTree<T,E> {
 	
 	public ArrayList<Node<T,E>> getSameValueNodes(T el, E player){
 		//TODO Creo que no está del todo bien el método
-		Node<T,E> current = search(el,player);
+		Node<T,E> node = search(el,player);
+		Node<T,E> current = root;
 		ArrayList<Node<T,E>> nodes = new ArrayList<Node<T,E>>();
-		nodes.add(current);
-		
-		while (current.getRight() != null && current.getVal().hashCode() == current.getRight().getVal().hashCode()) {
-			current = current.getRight();
-			nodes.add(current);
+		while (current != null ) {
+			// If it's the number
+			if (node.compareTo(current.getVal()) == 0) {
+				nodes.add(current);
+				System.out.println(current.getVal());
+				current = current.getRight();
+			// If is greater
+			} else if (node.compareTo(current.getVal()) > 0) {
+				current = current.getRight();
+			// If is smaller
+			} else {
+				current = current.getLeft();
+			}
 		}
+		System.out.println("acaba");
 		return nodes;
 	}
 	
