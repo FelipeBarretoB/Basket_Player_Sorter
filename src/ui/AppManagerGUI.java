@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
-import dataStructureTrees.BinaryTree;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,11 +24,40 @@ import javafx.scene.layout.BorderPane;
 import model.AppManager;
 import model.Player;
 
+
 public class AppManagerGUI {
 	private AppManager appManager;
 	
 	@FXML
 	private BorderPane mainPane;
+	
+	//La tabla principal de los jugadores
+    @FXML
+    private TableView<Player> tvPlayers;
+    
+    @FXML
+    private TableColumn<Player, String> tcPlayerName;
+
+    @FXML
+    private TableColumn<Player, String> tcPlayerTeam;
+
+    @FXML
+    private TableColumn<Player, String> tcPlayerAge;
+
+    @FXML
+    private TableColumn<Player, String> tcPlayerPoints;
+
+    @FXML
+    private TableColumn<Player, String> tcPlayerRebounds;
+
+    @FXML
+    private TableColumn<Player, String> tcPlayerBlocks;
+
+    @FXML
+    private TableColumn<Player, String> tcPlayerAssists;
+
+    @FXML
+    private TableColumn<Player, String> tcPlayerSteals;
 	
 	public AppManagerGUI(AppManager app) {
 		appManager = app;
@@ -45,14 +74,13 @@ public class AppManagerGUI {
 	// Therefore, we're reloading the controller
 	@FXML
 	public void initialize() {
-		try {
-			
-			loadList(null);
+		/*try {
+			//loadList(null);
 		} catch (IOException e) {
 			//TODO Don't mind this
 			//System.out.println("Nah, its okay bro");
 			//e.printStackTrace();
-		}
+		}*/
 	}
 	//TODO we could end up needing it.
 	@FXML
@@ -63,15 +91,35 @@ public class AppManagerGUI {
 	@FXML
 	public void loadList(ActionEvent event) throws IOException {
 		loadPage("List.fxml");
-		loadTableViewPlayers();
+		loadPlayerListValues();
+	}
+	
+	public void loadPlayerListValues() {
+		ObservableList<Player> observableList;
+		observableList = FXCollections.observableArrayList(appManager.getPlayers());
+		tvPlayers.setItems(observableList);
+		tcPlayerName.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+		tcPlayerAge.setCellValueFactory(new PropertyValueFactory<Player,String>("age"));
+		tcPlayerAssists.setCellValueFactory(new PropertyValueFactory<Player,String>("assists"));
+		tcPlayerPoints.setCellValueFactory(new PropertyValueFactory<Player,String>("points"));
+		tcPlayerRebounds.setCellValueFactory(new PropertyValueFactory<Player,String>("reBounds"));
+		tcPlayerSteals.setCellValueFactory(new PropertyValueFactory<Player,String>("steals"));
+		tcPlayerTeam.setCellValueFactory(new PropertyValueFactory<Player,String>("team"));
 	}
 	
 	@FXML
 	public void test(ActionEvent event) throws IOException {
+		//Test de busqueda de todos con el mismo valor en el arbol
+		//loadPlayerListValues();
+		//appManager.testCase();
+		
+		
+		/*
 		System.out.println("Fair enough!");
 		BinaryTree<Integer, Player> bt = appManager.getBinarySearchTrees().get(0);
 		System.out.println(bt.getRoot().getPlayer().toString());
 		System.out.println(bt.delete(32, null).getPlayer().toString());
+		*/
 	}
 	
 	@FXML
@@ -83,50 +131,6 @@ public class AppManagerGUI {
 	public AppManager returnAppManager() {
 		return appManager;
 	}
-	
-	
-	
-	
-	@FXML
-    private TableView<Player> tvPlayers;
-
-    @FXML
-    private TableColumn<Player, String> tcName;
-
-    @FXML
-    private TableColumn<Player, String> tcTeam;
-
-    @FXML
-    private TableColumn<Player, String> tcAge;
-
-    @FXML
-    private TableColumn<Player, String> tcPoints;
-
-    @FXML
-    private TableColumn<Player, String> tcRebounds;
-
-    @FXML
-    private TableColumn<Player, String> tcBlocks;
-
-    @FXML
-    private TableColumn<Player, String> tcAssists;
-
-    @FXML
-    private TableColumn<Player, String> tcSteals;
-    
-    public void loadTableViewPlayers() {
-    	ObservableList<Player> observableList;
-		observableList = FXCollections.observableArrayList(appManager.getPlayers());
-		tvPlayers.setItems(observableList);
-		tcName.setCellValueFactory(new PropertyValueFactory<Player,String>("name")); 
-		tcTeam.setCellValueFactory(new PropertyValueFactory<Player,String>("team")); 
-		tcAge.setCellValueFactory(new PropertyValueFactory<Player,String>("age")); 
-		tcPoints.setCellValueFactory(new PropertyValueFactory<Player,String>("pionts"));
-		tcRebounds.setCellValueFactory(new PropertyValueFactory<Player,String>("rebounds"));
-		tcBlocks.setCellValueFactory(new PropertyValueFactory<Player,String>("blocks"));
-		tcAssists.setCellValueFactory(new PropertyValueFactory<Player,String>("assists"));
-		tcSteals.setCellValueFactory(new PropertyValueFactory<Player,String>("steals"));
-    }
     
     public void loadPage(String page) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(page));

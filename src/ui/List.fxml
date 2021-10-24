@@ -15,14 +15,14 @@
       </Label>
       <TableView fx:id="tvPlayers" layoutX="20.0" layoutY="87.0" prefHeight="363.0" prefWidth="633.0">
          <columns>
-            <TableColumn fx:id="tcName" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="tcTeam" text="Team" />
-            <TableColumn fx:id="tcAge" prefWidth="72.0" text="Age" />
-            <TableColumn fx:id="tcPoints" prefWidth="79.0" text="Points" />
-            <TableColumn fx:id="tcRebounds" prefWidth="77.0" text="Rebounds" />
-            <TableColumn fx:id="tcBlocks" text="Blocks" />
-            <TableColumn fx:id="tcAssists" prefWidth="70.0" text="Assists" />
-            <TableColumn fx:id="tcSteals" prefWidth="99.0" text="Steals" />
+            <TableColumn fx:id="tcPlayerName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="tcPlayerTeam" text="Team" />
+            <TableColumn fx:id="tcPlayerAge" prefWidth="72.0" text="Age" />
+            <TableColumn fx:id="tcPlayerPoints" prefWidth="79.0" text="Points" />
+            <TableColumn fx:id="tcPlayerRebounds" prefWidth="77.0" text="Rebounds" />
+            <TableColumn fx:id="tcPlayerBlocks" text="Blocks" />
+            <TableColumn fx:id="tcPlayerAssists" prefWidth="70.0" text="Assists" />
+            <TableColumn fx:id="tcPlayerSteals" prefWidth="99.0" text="Steals" />
          </columns>
       </TableView>
    </children>
