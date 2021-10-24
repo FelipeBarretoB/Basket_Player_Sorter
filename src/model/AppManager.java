@@ -166,5 +166,15 @@ public class AppManager {
 	public List<BinaryTree<Integer, Player>> getBinarySearchTrees() {
 		return binarySearchTrees;
 	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+	
+	
 }
 
