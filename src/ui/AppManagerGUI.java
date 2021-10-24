@@ -56,7 +56,6 @@ public class AppManagerGUI {
 		appManager = app;
 		try {
 			appManager.importPlayerDataBase();
-			
 			appManager.callCreatBinarySearchTreeThread();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -102,21 +101,15 @@ public class AppManagerGUI {
 		tcPlayerRebounds.setCellValueFactory(new PropertyValueFactory<Player,String>("reBounds"));
 		tcPlayerSteals.setCellValueFactory(new PropertyValueFactory<Player,String>("steals"));
 		tcPlayerTeam.setCellValueFactory(new PropertyValueFactory<Player,String>("team"));
-		/*
-		tvOrders.setItems(observableList);
-		tcOrderCode.setCellValueFactory(new PropertyValueFactory<Order,String>("code")); 
-		tcOrderState.setCellValueFactory(new PropertyValueFactory<Order,String>("state")); 
-		tcOrderClient.setCellValueFactory(new PropertyValueFactory<Order,String>("requestClient")); 
-		tcOrderEmployee.setCellValueFactory(new PropertyValueFactory<Order,String>("deliverEmployee"));
-		tcOrderDate.setCellValueFactory(new PropertyValueFactory<Order,String>("date"));
-		*/
+	
 	}
 	
 	@FXML
 	public void test(ActionEvent event) throws IOException {
 		//Test de busqueda de todos con el mismo valor en el arbol
-		loadPlayerListValues();
-		appManager.getBinarySearchTrees().get(1).getSameValueNodes(50, null);
+		//loadPlayerListValues();
+		//appManager.testCase();
+		
 		
 		/*
 		System.out.println("Fair enough!");

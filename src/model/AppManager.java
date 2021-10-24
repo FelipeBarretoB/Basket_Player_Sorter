@@ -132,7 +132,13 @@ public class AppManager {
 		Player newPlayer= new Player(name, team, age, points, reBounds, blocks, assists, steals);
 		players.remove(index);
 		players.add(index, newPlayer);
-		//Hasta aqui, solo funciona para la arraylist xd
+		System.out.println(modifiedPlayer.getName());
+		int i=0;
+		String[] values= {"age","points","reBounds","blocks"};
+		while(i<4) {
+			binarySearchTrees.get(i).deleteSpecificPlayer(Integer.parseInt(modifiedPlayer.get(values[i])), modifiedPlayer);
+			binarySearchTrees.get(i).insert(Integer.parseInt(newPlayer.get(values[i])), newPlayer);
+		}
 	}
 
 
@@ -161,13 +167,31 @@ public class AppManager {
 		createBinarySearchTree= new CreateBinarySearchTreeThread(this);
 		createBinarySearchTree.start();
 	}
-	
+
 	public List<BinaryTree<Integer, Player>> getBinarySearchTrees() {
 		return binarySearchTrees;
 	}
-	
+
 	public List<Player> getPlayers(){
 		return players;
 	}
+
+	public void testCase() {
+		int i=0;
+		String[] values= {"age","points","reBounds","blocks"};
+		binarySearchTrees.add(new BinaryTree<Integer, Player>());
+		for(int c=0;c<5;c++) {
+			System.out.println(players.get(c).getName());
+			binarySearchTrees.get(i).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
+		}
+		System.out.println(binarySearchTrees.get(i).searchSpecificPlayer(players.get(2).getAge(), players.get(2)).getPlayer().getName());
+		System.out.println("ANTES");
+		binarySearchTrees.get(i).printTree(binarySearchTrees.get(i).getRoot());
+		//binarySearchTrees.get(i).deleteSpecificPlayer(players.get(2).getAge(), players.get(2));
+		modify(2, "SAPO DE MIERDA", "wewewewewewewe", 69, 69, 69, 69, 69, 69);
+		System.out.println("DESPUES \n \n");
+		binarySearchTrees.get(i).printTree(binarySearchTrees.get(i).getRoot());
+	}
+
 }
 
