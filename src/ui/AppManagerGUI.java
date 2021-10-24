@@ -2,6 +2,7 @@ package ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -11,8 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import java.util.List;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import model.AppManager;
 import model.Player;
@@ -74,6 +78,7 @@ public class AppManagerGUI {
 	// Therefore, we're reloading the controller
 	@FXML
 	public void initialize() {
+		
 		/*try {
 			//loadList(null);
 		} catch (IOException e) {
@@ -123,10 +128,39 @@ public class AppManagerGUI {
 	}
 	
 	@FXML
+    private ComboBox<String> cbSearchParameter;
+
+    @FXML
+    private TextField txtSearchValue;
+
+    @FXML
+    private ImageView imgPlayerCharacter;
+
+    @FXML
+    private TableView<Player> tvSimilarPlayers;
+    
+    @FXML
+    private TableColumn<Player, String> tcPlayerData;
+	
+	@FXML
 	public void loadSearch(ActionEvent event) throws IOException {
 		loadPage("Search.fxml");
+		loadComboBox();
 	}
 	
+	public void loadComboBox() {
+		ObservableList<String> observableList;
+		ArrayList<String> values = new ArrayList<String>();
+		values.add("Name");
+		values.add("Age");
+		values.add("Assists");
+		values.add("Points");
+		values.add("Rebounds");
+		values.add("Steals");
+		values.add("Team");
+		observableList = FXCollections.observableArrayList(values);
+		cbSearchParameter.setItems(observableList);
+	}
 	//TODO This method is so the appManager doesn't returns warnings as we're not using it. "Remove Later".
 	public AppManager returnAppManager() {
 		return appManager;
@@ -138,22 +172,65 @@ public class AppManagerGUI {
 		Parent pane = fxmlLoader.load();
 		mainPane.setCenter(pane);
     }
-    
-    @FXML
-    private ComboBox<?> cbSearchParameter;
-
-    @FXML
-    private TextField txtSearchValue;
-
-    @FXML
-    private ImageView imgPlayerCharacter;
-
-    @FXML
-    private ListView<?> lvSimilarPlayers;
 
     @FXML
     void searchPlayers(ActionEvent event) {
+    	//linearSearch
+    	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null) {
+    		ObservableList<Player> observableList;
+    		observableList = FXCollections.observableArrayList(appManager.linearSearch(txtSearchValue.getText(),cbSearchParameter.getValue()));
+    		tvSimilarPlayers.setItems(observableList);
+    		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+    		
+    	}else {
+    		System.out.println("a");
+    	}
     	
+    }
+    
+    @FXML
+    private Label labPlayerName;
+
+    @FXML
+    private Label labPlayerAge;
+
+    @FXML
+    private Label labPlayerTeam;
+
+    @FXML
+    private Label labPlayerPoints;
+
+    @FXML
+    private Label labPlayerRebounds;
+
+    @FXML
+    private Label labPlayerBlocks;
+
+    @FXML
+    private Label labPlayerAssists;
+
+    @FXML
+    private Label labPlayerSteals;
+    
+    @FXML
+    void showPlayerInfo(MouseEvent event) {
+    	if(tvSimilarPlayers.getSelectionModel().getSelectedItem() != null) {
+			Player player = tvSimilarPlayers.getSelectionModel().getSelectedItem();
+			
+			labPlayerName.setText("Name: " + player.getName());
+			labPlayerAge.setText("Age: " + player.getAge());
+			labPlayerTeam.setText("Team: " + player.getTeam());
+			labPlayerPoints.setText("Points: " + player.getPoints());
+			labPlayerRebounds.setText("Rebounds: " + player.getReBounds());
+			labPlayerBlocks.setText("Blocks: " + player.getBlocks());
+			labPlayerAssists.setText("Assists: " + player.getAssists());
+			labPlayerSteals.setText("Steals: " + player.getSteals());
+			
+			changeImage();
+		}
+    }
+    
+    public void changeImage(){
     	int x = randNum(1, 100);
     	if(x > 0 && x <= 33) {
     		imgPlayerCharacter.setImage(new Image("file:Data\\images\\basketball_player_1.png"));
@@ -164,10 +241,16 @@ public class AppManagerGUI {
     	}else {
     		imgPlayerCharacter.setImage(new Image("file:Data\\images\\sape.png"));
     	}
-    	
     }
+    /*public ArrayList<String> playersNamesFilter(ArrayList<Player> players){
+    	ArrayList<String> names = new ArrayList<String>();
+    	for(int i = 0; i < players.size(); i++) {
+    		names.add(players.get(i).getName());
+    	}
+    	return names;
+    }*/
     
-    public static int randNum(int min, int max) {
+    public int randNum(int min, int max) {
 		return ThreadLocalRandom.current().nextInt(min, max + 1);
 	}
 }
