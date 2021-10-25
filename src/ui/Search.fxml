@@ -31,17 +31,17 @@
       </Label>
       <TextField fx:id="txtSearchValue" layoutX="145.0" layoutY="119.0" prefHeight="25.0" prefWidth="150.0" />
       <Button layoutX="14.0" layoutY="166.0" mnemonicParsing="false" onAction="#searchPlayers" text="Search" />
-      <Label fx:id="labPlayerName" layoutX="202.0" layoutY="220.0" text="Name:">
+      <Label fx:id="labPlayerName" layoutX="202.0" layoutY="220.0" prefHeight="22.0" prefWidth="150.0" text="Name:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labPlayerAge" layoutX="201.0" layoutY="242.0" text="Age:">
+      <Label fx:id="labPlayerAge" layoutX="201.0" layoutY="242.0" prefHeight="22.0" prefWidth="150.0" text="Age:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labPlayerTeam" layoutX="201.0" layoutY="264.0" text="Team:">
+      <Label fx:id="labPlayerTeam" layoutX="201.0" layoutY="264.0" prefHeight="22.0" prefWidth="150.0" text="Team:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
@@ -51,27 +51,27 @@
             <Image url="@../../../../OneDrive/Imágenes/male-basketball-player-avatar-man-260nw-1985400338.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="labPlayerPoints" layoutX="201.0" layoutY="286.0" text="Points:">
+      <Label fx:id="labPlayerPoints" layoutX="201.0" layoutY="286.0" prefHeight="22.0" prefWidth="150.0" text="Points:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labPlayerRebounds" layoutX="200.0" layoutY="308.0" prefHeight="22.0" prefWidth="76.0" text="Rebounds:">
+      <Label fx:id="labPlayerRebounds" layoutX="200.0" layoutY="308.0" prefHeight="22.0" prefWidth="150.0" text="Rebounds:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labPlayerBlocks" layoutX="199.0" layoutY="330.0" text="Blocks:">
+      <Label fx:id="labPlayerBlocks" layoutX="199.0" layoutY="330.0" prefHeight="22.0" prefWidth="150.0" text="Blocks:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labPlayerAssists" layoutX="198.0" layoutY="352.0" text="Assists:">
+      <Label fx:id="labPlayerAssists" layoutX="198.0" layoutY="352.0" prefHeight="22.0" prefWidth="150.0" text="Assists:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labPlayerSteals" layoutX="198.0" layoutY="374.0" text="Steals:">
+      <Label fx:id="labPlayerSteals" layoutX="198.0" layoutY="374.0" prefHeight="22.0" prefWidth="150.0" text="Steals:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
@@ -81,5 +81,10 @@
           <TableColumn fx:id="tcPlayerData" prefWidth="237.0" text="Players found" />
         </columns>
       </TableView>
+      <Label fx:id="warningLabel" layoutX="12.0" layoutY="410.0" prefHeight="22.0" prefWidth="363.0" textFill="RED">
+         <font>
+            <Font name="Franklin Gothic Medium Cond" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

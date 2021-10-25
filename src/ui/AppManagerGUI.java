@@ -60,6 +60,9 @@ public class AppManagerGUI {
     @FXML
     private TableColumn<Player, String> tcPlayerSteals;
 	
+    @FXML
+    private Label warningLabel;
+    
 	public AppManagerGUI(AppManager app) {
 		appManager = app;
 		try {
@@ -191,7 +194,8 @@ public class AppManagerGUI {
     		
     		
     		// ------------------------------------------------------------------ //
-    		if (observableList.size() > 0) {    			
+    		if (observableList.size() > 0) {
+    			warningLabel.setText("");
     			Player player = observableList.get(0);
     			
     			labPlayerName.setText("Name: " + player.getName());
@@ -204,6 +208,9 @@ public class AppManagerGUI {
     			labPlayerSteals.setText("Steals: " + player.getSteals());
     			
     			changeImage();
+    		} else {
+    			warningLabel.setText("No se ha encontrado ningún jugador con ese parametro!");
+    			//imgPlayerCharacter.setImage(new Image(""));
     		}
     		
     	}else {
