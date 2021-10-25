@@ -1,6 +1,5 @@
 package ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,11 +11,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import java.util.List;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -178,14 +175,40 @@ public class AppManagerGUI {
     	//linearSearch
     	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null) {
     		ObservableList<Player> observableList;
-    		observableList = FXCollections.observableArrayList(appManager.linearSearch(txtSearchValue.getText(),cbSearchParameter.getValue()));
+    		String parameter = cbSearchParameter.getValue().toLowerCase();
+    		if (parameter.equals("rebounds")) {
+    			parameter = "reBounds";
+    		}
+    		/*System.out.println(parameter);
+    		System.out.println(txtSearchValue.getText());
+    		System.out.println("1");*/
+    		observableList = FXCollections.observableArrayList(appManager.linearSearch(parameter,txtSearchValue.getText()));
+    		//System.out.println(appManager.linearSearch(cbSearchParameter.getValue(),txtSearchValue.getText()));
     		tvSimilarPlayers.setItems(observableList);
     		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+    		/*System.out.println(observableList);
+    		System.out.println("2");*/
+    		
+    		
+    		// ------------------------------------------------------------------ //
+    		if (observableList.size() > 0) {    			
+    			Player player = observableList.get(0);
+    			
+    			labPlayerName.setText("Name: " + player.getName());
+    			labPlayerAge.setText("Age: " + player.getAge());
+    			labPlayerTeam.setText("Team: " + player.getTeam());
+    			labPlayerPoints.setText("Points: " + player.getPoints());
+    			labPlayerRebounds.setText("Rebounds: " + player.getReBounds());
+    			labPlayerBlocks.setText("Blocks: " + player.getBlocks());
+    			labPlayerAssists.setText("Assists: " + player.getAssists());
+    			labPlayerSteals.setText("Steals: " + player.getSteals());
+    			
+    			changeImage();
+    		}
     		
     	}else {
     		System.out.println("a");
     	}
-    	
     }
     
     @FXML
