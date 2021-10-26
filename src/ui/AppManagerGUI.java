@@ -59,9 +59,6 @@ public class AppManagerGUI {
 
     @FXML
     private TableColumn<Player, String> tcPlayerSteals;
-	
-    @FXML
-    private Label warningLabel;
     
 	public AppManagerGUI(AppManager app) {
 		appManager = app;
@@ -172,51 +169,6 @@ public class AppManagerGUI {
 		Parent pane = fxmlLoader.load();
 		mainPane.setCenter(pane);
     }
-
-    @FXML
-    void searchPlayers(ActionEvent event) {
-    	//linearSearch
-    	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null) {
-    		ObservableList<Player> observableList;
-    		String parameter = cbSearchParameter.getValue().toLowerCase();
-    		if (parameter.equals("rebounds")) {
-    			parameter = "reBounds";
-    		}
-    		/*System.out.println(parameter);
-    		System.out.println(txtSearchValue.getText());
-    		System.out.println("1");*/
-    		observableList = FXCollections.observableArrayList(appManager.linearSearch(parameter,txtSearchValue.getText()));
-    		//System.out.println(appManager.linearSearch(cbSearchParameter.getValue(),txtSearchValue.getText()));
-    		tvSimilarPlayers.setItems(observableList);
-    		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
-    		/*System.out.println(observableList);
-    		System.out.println("2");*/
-    		
-    		
-    		// ------------------------------------------------------------------ //
-    		if (observableList.size() > 0) {
-    			warningLabel.setText("");
-    			Player player = observableList.get(0);
-    			
-    			labPlayerName.setText("Name: " + player.getName());
-    			labPlayerAge.setText("Age: " + player.getAge());
-    			labPlayerTeam.setText("Team: " + player.getTeam());
-    			labPlayerPoints.setText("Points: " + player.getPoints());
-    			labPlayerRebounds.setText("Rebounds: " + player.getReBounds());
-    			labPlayerBlocks.setText("Blocks: " + player.getBlocks());
-    			labPlayerAssists.setText("Assists: " + player.getAssists());
-    			labPlayerSteals.setText("Steals: " + player.getSteals());
-    			
-    			changeImage();
-    		} else {
-    			warningLabel.setText("No se ha encontrado ningún jugador con ese parametro!");
-    			//imgPlayerCharacter.setImage(new Image(""));
-    		}
-    		
-    	}else {
-    		System.out.println("a");
-    	}
-    }
     
     @FXML
     private Label labPlayerName;
@@ -241,6 +193,55 @@ public class AppManagerGUI {
 
     @FXML
     private Label labPlayerSteals;
+    
+    @FXML
+    private TextField txtBegRange;
+
+    @FXML
+    private TextField txtEndRange;
+
+    @FXML
+    private Label labWarning;
+
+    @FXML
+    void searchPlayers(ActionEvent event) {
+    	
+    	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null && txtBegRange.getText().equals("") && txtEndRange.getText().equals("")) {
+    		
+    	}
+    	//linearSearch
+    	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null) {
+    		ObservableList<Player> observableList;
+    		String parameter = cbSearchParameter.getValue().toLowerCase();
+    		if (parameter.equals("rebounds")) {
+    			parameter = "reBounds";
+    		}
+    		observableList = FXCollections.observableArrayList(appManager.linearSearch(parameter,txtSearchValue.getText()));
+    		tvSimilarPlayers.setItems(observableList);
+    		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+    		
+    		if (observableList.size() > 0) {
+    			labWarning.setText("");
+    			Player player = observableList.get(0);
+    			
+    			labPlayerName.setText("Name: " + player.getName());
+    			labPlayerAge.setText("Age: " + player.getAge());
+    			labPlayerTeam.setText("Team: " + player.getTeam());
+    			labPlayerPoints.setText("Points: " + player.getPoints());
+    			labPlayerRebounds.setText("Rebounds: " + player.getReBounds());
+    			labPlayerBlocks.setText("Blocks: " + player.getBlocks());
+    			labPlayerAssists.setText("Assists: " + player.getAssists());
+    			labPlayerSteals.setText("Steals: " + player.getSteals());
+    			
+    			changeImage();
+    		} else {
+    			labWarning.setText("No se ha encontrado ningún jugador con ese parametro!");
+    		}
+    		
+    	}else {
+    		System.out.println("a");
+    	}
+    }
     
     @FXML
     void showPlayerInfo(MouseEvent event) {
@@ -283,4 +284,6 @@ public class AppManagerGUI {
     public int randNum(int min, int max) {
 		return ThreadLocalRandom.current().nextInt(min, max + 1);
 	}
+
+    
 }
