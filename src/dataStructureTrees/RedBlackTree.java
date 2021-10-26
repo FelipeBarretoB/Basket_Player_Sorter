@@ -83,18 +83,46 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		}
 	}
 	
+	@Override
+	public void insert(T el, E player) {
+		Node<T,E> node = new Node<>(el, player);
+		Node<T,E> temp = null;
+		Node<T,E> current = root;
+		while (current != null) {
+			temp = current;
+			if (node.getVal().hashCode() < current.getVal().hashCode()/*node.compareTo(current.getVal()) < 0*/) {
+				current = current.getLeft();
+			} else {
+				current = current.getRight();
+			}
+		}
+		node.setParent(temp);
+		if (temp == null) {
+			root = (RBNode<T, E>) node;
+			root.setColor(Color.BLACK);
+		} else if (node.getVal().hashCode() < temp.getVal().hashCode()/*node.compareTo(temp.getVal()) < 0*/) {
+			temp.setLeft(node);
+		} else {
+			temp.setRight(node);
+		}
+		
+		insertFix(root,(RBNode<T, E>) node);
+	}
 	
-	public void insert(RBNode<T, E> node) {
-		RBNode<T, E> aux = (RBNode<T, E>) node.getRight();
-		node.setColor(Color.RED);
+	public void insertFix(RBNode<T, E> rt, RBNode<T, E> node) {
+		RBNode<T, E> aux;
+		//node.setColor(Color.RED);
 		while(node != root && ((RBNode<T, E>) node.getParent()).getColor() == Color.RED) {
+			
 			if (node.getParent()== node.getParent().getParent().getLeft()) {
 				aux = (RBNode<T, E>) node.getParent().getParent().getRight();
-				if(aux.getColor().equals(Color.RED)) {
+				
+				if(aux != null && aux.getColor().equals(Color.RED)) {
 					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
 					aux.setColor(Color.BLACK);
 					((RBNode<T, E>) node.getParent().getParent()).setColor(Color.RED);
 					node = (RBNode<T, E>) node.getParent().getParent();
+					
 				}else if(node == (RBNode<T, E>) node.getParent().getRight()) {
 					node = (RBNode<T, E>) node.getParent();
 					rotateLeft(node);
@@ -104,6 +132,7 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 				}
 			} else {
 				aux = (RBNode<T, E>) node.getParent().getParent().getLeft();
+				
 				if(aux.getColor().equals(Color.RED)) {
 					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
 					aux.setColor(Color.BLACK);
