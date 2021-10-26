@@ -115,8 +115,8 @@ public class AppManagerGUI {
 	@FXML
 	public void test(ActionEvent event) throws IOException {
 		//Test de busqueda de todos con el mismo valor en el arbol
-		//loadPlayerListValues();
-		//appManager.testCase();
+		System.out.println(appManager.getBinarySearchTrees().get(0).getRoot());
+		
 		
 		
 		/*
@@ -185,7 +185,7 @@ public class AppManagerGUI {
     		/*System.out.println(parameter);
     		System.out.println(txtSearchValue.getText());
     		System.out.println("1");*/
-    		observableList = FXCollections.observableArrayList(appManager.linearSearch(parameter,txtSearchValue.getText()));
+    		observableList = FXCollections.observableArrayList(appManager.searchWithTree(parameter,txtSearchValue.getText()));
     		//System.out.println(appManager.linearSearch(cbSearchParameter.getValue(),txtSearchValue.getText()));
     		tvSimilarPlayers.setItems(observableList);
     		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));

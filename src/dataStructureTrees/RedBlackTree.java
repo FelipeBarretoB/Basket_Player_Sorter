@@ -32,9 +32,9 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		node.setParent(aux);
 	}/*/
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public RBNode rotateLeft(RBNode node){
-		RBNode aux = (RBNode) node.getRight();
+	
+	public RBNode<T, E> rotateLeft(RBNode<T, E> node){
+		RBNode<T, E> aux =  (RBNode<T, E>) node.getRight();
 		node.setRight(aux.getLeft());
 		aux.setLeft(node);
 		aux.setColor(node.getColor());
@@ -52,32 +52,32 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		return aux;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void delete(RBNode node) {
-		RBNode aux = (RBNode) node.getRight();
-		delete((T)node.getVal(), (E)node.getPlayer());
+	
+	public void delete(RBNode<T, E> node) {
+		RBNode<T, E> aux = (RBNode<T, E>) node.getRight();
+		delete(node.getVal(), node.getPlayer());
 		while(node != root && node.getColor() == Color.BLACK) {
 			if(node == node.getParent().getLeft()) {
-				aux = (RBNode) node.getParent().getRight();
+				aux = (RBNode<T, E>) node.getParent().getRight();
 				if(aux.getColor()==Color.RED) {
 					aux.setColor(Color.BLACK);
 					((RBNode<T, E>) node.getParent()).setColor(Color.RED);
-					rotateLeft((RBNode)node.getParent());
-					aux = (RBNode) node.getParent().getRight();
+					rotateLeft((RBNode<T, E>)node.getParent());
+					aux = (RBNode<T, E>) node.getParent().getRight();
 				}
 				if(aux.getColor()==Color.BLACK && ((RBNode<T, E>) aux.getRight()).getColor()==Color.BLACK) {
 					aux.setColor(Color.RED);
-					node = (RBNode) node.getParent();
+					node = (RBNode<T, E>) node.getParent();
 				} else if(((RBNode<T, E>) aux.getRight()).getColor()==Color.BLACK) {
 					((RBNode<T, E>) aux.getLeft()).setColor(Color.BLACK);
 					aux.setColor(Color.RED);
 					rotateRight(aux);
-					aux = (RBNode) node.getParent().getRight();
+					aux = (RBNode<T, E>) node.getParent().getRight();
 				}
 				//aux.setColor(node.getParent().getRight());
 				((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
 				((RBNode<T, E>) aux.getRight()).setColor(Color.BLACK);
-				rotateLeft((RBNode) node.getParent());
+				rotateLeft((RBNode<T, E>) node.getParent());
 				node= root;
 			}
 		}

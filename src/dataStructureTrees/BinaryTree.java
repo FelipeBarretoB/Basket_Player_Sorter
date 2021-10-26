@@ -82,7 +82,7 @@ public class BinaryTree<T,E> {
 
 	public ArrayList<Node<T,E>> getSameValueNodes(T el, E player){
 		//TODO Creo que no está del todo bien el método
-		Node<T,E> node = search(el,player);
+		Node<T,E> node = new Node<>(el,player);
 		Node<T,E> current = root;
 		ArrayList<Node<T,E>> nodes = new ArrayList<Node<T,E>>();
 		while (current != null ) {
@@ -200,7 +200,6 @@ public class BinaryTree<T,E> {
 		Node<T,E> current = root;
 		boolean notFound = false;
 		if (root != null) {
-
 			while (current != null && !notFound) {
 				// If it's the number
 				if (node.compareTo(current.getVal()) == 0 && node.getPlayer()==current.getPlayer()) {

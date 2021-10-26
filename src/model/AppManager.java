@@ -10,6 +10,8 @@ import Threads.ImportDataBaseThread;
 import Threads.LinearSearchThread;
 import Threads.LinearSearchWithRange;
 import dataStructureTrees.BinaryTree;
+import dataStructureTrees.Node;
+import dataStructureTrees.RedBlackTree;
 
 public class AppManager {
 
@@ -97,10 +99,11 @@ public class AppManager {
 		return playerFound;
 	}
 
-	public Player searchWithTree(String search, int searchedFor) {
+	public ArrayList<Player> searchWithTree(String search, String searchedFor) {
 		int index = 0;
 		switch (search) {
 		case "age":
+			System.out.println("a");
 			index = 0;
 			break;
 		case "points":
@@ -116,11 +119,14 @@ public class AppManager {
 			index = -1;
 			break;
 		}
-		Player pl = null;
+		ArrayList<Player> pl = new ArrayList<Player>();
 		if (index != -1) {
-			pl = binarySearchTrees.get(index).search(searchedFor, null).getPlayer();
+			ArrayList<Node<Integer,Player>> temp=binarySearchTrees.get(index).getSameValueNodes(Integer.parseInt(searchedFor), null);
+			for(int c=0;c<temp.size();c++) {
+				pl.add(temp.get(c).getPlayer());
+			}
 		}else {
-			pl = linearSearchForFirstPlayerWithValue(search, search);
+			pl = linearSearch(search, searchedFor);
 		}
 		return pl;
 	}
@@ -143,10 +149,14 @@ public class AppManager {
 
 
 	public void creatBinarySearchTree() {
-		int i=0;
+		int i=1;
 		String[] values= {"age","points","reBounds","blocks"};
 		double first = System.nanoTime();
-		while(i<4) {
+		binarySearchTrees.add(new RedBlackTree<Integer, Player>());
+		for(int c=0;c<players.size();c++) {
+			binarySearchTrees.get(0).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
+		}
+		while(i<3) {
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
 			for(int c=0;c<players.size();c++) {
 				binarySearchTrees.get(i).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
@@ -171,7 +181,7 @@ public class AppManager {
 	public List<BinaryTree<Integer, Player>> getBinarySearchTrees() {
 		return binarySearchTrees;
 	}
-	
+
 	public List<Player> getPlayers(){
 		return players;
 	}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="494.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="261.0" layoutY="24.0" text="List of Players">
+         <font>
+            <Font name="Franklin Gothic Medium Cond" size="30.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tvPlayers" layoutX="20.0" layoutY="87.0" prefHeight="363.0" prefWidth="633.0">
+         <columns>
+            <TableColumn fx:id="tcPlayerName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="tcPlayerTeam" text="Team" />
+            <TableColumn fx:id="tcPlayerAge" prefWidth="72.0" text="Age" />
+            <TableColumn fx:id="tcPlayerPoints" prefWidth="79.0" text="Points" />
+            <TableColumn fx:id="tcPlayerRebounds" prefWidth="77.0" text="Rebounds" />
+            <TableColumn fx:id="tcPlayerBlocks" text="Blocks" />
+            <TableColumn fx:id="tcPlayerAssists" prefWidth="70.0" text="Assists" />
+            <TableColumn fx:id="tcPlayerSteals" prefWidth="99.0" text="Steals" />
+         </columns>
+      </TableView>
+   </children>
+</Pane>
