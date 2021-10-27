@@ -3,8 +3,6 @@ package ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,6 +58,9 @@ public class AppManagerGUI {
     @FXML
     private TableColumn<Player, String> tcPlayerSteals;
     
+    @FXML
+    private Label warningLabel;
+    
 	public AppManagerGUI(AppManager app) {
 		appManager = app;
 		try {
@@ -75,7 +76,7 @@ public class AppManagerGUI {
 	// Therefore, we're reloading the controller
 	@FXML
 	public void initialize() {
-		
+		System.out.println("alo");
 		/*try {
 			//loadList(null);
 		} catch (IOException e) {
