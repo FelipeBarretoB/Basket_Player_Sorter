@@ -83,23 +83,31 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		}
 	}
 	
-	@Override
+	
 	public void insert(T el, E player) {
-		Node<T,E> node = new Node<>(el, player);
-		Node<T,E> temp = null;
-		Node<T,E> current = root;
+		insertTwo(root, el, player);
+	}
+	
+	
+	public void insertTwo(RBNode a,T el, E player) {
+		RBNode<T,E> node = new RBNode<>(el, player);
+		RBNode<T,E> temp = null;
+		RBNode<T,E> current = a;
 		while (current != null) {
+			
 			temp = current;
 			if (node.getVal().hashCode() < current.getVal().hashCode()/*node.compareTo(current.getVal()) < 0*/) {
-				current = current.getLeft();
+				current = (RBNode<T, E>) current.getLeft();
 			} else {
-				current = current.getRight();
+				current = (RBNode<T, E>) current.getRight();
 			}
 		}
+		
 		node.setParent(temp);
+		
 		if (temp == null) {
-			root = (RBNode<T, E>) node;
-			root.setColor(Color.BLACK);
+			a = node;
+			a.setColor(Color.BLACK);
 		} else if (node.getVal().hashCode() < temp.getVal().hashCode()/*node.compareTo(temp.getVal()) < 0*/) {
 			temp.setLeft(node);
 		} else {
@@ -112,40 +120,98 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 	public void insertFix(RBNode<T, E> rt, RBNode<T, E> node) {
 		RBNode<T, E> aux;
 		//node.setColor(Color.RED);
-		while(node != root && ((RBNode<T, E>) node.getParent()).getColor() == Color.RED) {
+		while(node.getParent() != null && ((RBNode<T, E>) node.getParent()).getColor() == Color.RED) {
 			
 			if (node.getParent()== node.getParent().getParent().getLeft()) {
 				aux = (RBNode<T, E>) node.getParent().getParent().getRight();
 				
-				if(aux != null && aux.getColor().equals(Color.RED)) {
-					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
-					aux.setColor(Color.BLACK);
-					((RBNode<T, E>) node.getParent().getParent()).setColor(Color.RED);
-					node = (RBNode<T, E>) node.getParent().getParent();
+				if((aux != null && aux.getColor().equals(Color.BLACK)) || aux == null) {
 					
-				}else if(node == (RBNode<T, E>) node.getParent().getRight()) {
-					node = (RBNode<T, E>) node.getParent();
-					rotateLeft(node);
+					if(node == node.getParent().getRight()) {
+						node = (RBNode<T, E>) node.getParent();
+						rotateLeft(node);
+					}
+					
+					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
+					//aux.setColor(Color.BLACK);
+					((RBNode<T, E>) node.getParent().getParent()).setColor(Color.RED);
+					//node = (RBNode<T, E>) node.getParent().getParent();
+					rotateRight((RBNode) node.getParent().getParent());
+					
+				}else if(node == (RBNode<T, E>) node.getParent().getLeft() && aux != null && aux.getColor() == Color.RED) {
+					node.setColor(Color.BLACK);
+					rotateRight((RBNode) node.getParent().getParent());
+					
+					if(node.getParent().getParent() != null && ((RBNode<T, E>) node.getParent().getParent()).getColor() == Color.RED) {
+						node = (RBNode<T, E>) node.getParent();
+					}
+					
+				}else if(node == (RBNode<T, E>) node.getParent().getRight() && aux != null && aux.getColor() == Color.RED) {
+					node.setColor(Color.BLACK);
+					rotateLeft((RBNode) node.getParent().getParent());
+					rotateRight((RBNode) node.getParent().getParent());
+					
+					/*if(node.getParent() != null && ((RBNode<T, E>) node.getParent()).getColor() == Color.RED) {
+						node = (RBNode<T, E>) node.getParent();
+					}*/
+					
+				}else if(aux != null && aux.getColor() == Color.RED) {
 					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
 					((RBNode<T, E>) node.getParent().getParent()).setColor(Color.RED);
-					rotateRight((RBNode<T, E>) node.getParent().getParent());
+					aux.setColor(Color.BLACK);
+					node = (RBNode<T, E>) node.getParent().getParent();
 				}
+				node = (RBNode<T, E>) node.getParent();
+				rotateLeft(node);
+				
+				rotateRight((RBNode<T, E>) node.getParent().getParent());
 			} else {
 				aux = (RBNode<T, E>) node.getParent().getParent().getLeft();
 				
-				if(aux.getColor().equals(Color.RED)) {
+				if((aux != null && aux.getColor().equals(Color.BLACK)) || aux == null) {
+					
+					if( node == node.getParent().getLeft()) {
+						node = (RBNode<T, E>) node.getParent();
+						rotateRight(node);
+					}
+					
 					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
-					aux.setColor(Color.BLACK);
+					//aux.setColor(Color.BLACK);
 					((RBNode<T, E>) node.getParent().getParent()).setColor(Color.RED);
-					node = (RBNode<T, E>) node.getParent().getParent();
-				}else if(node == (RBNode<T, E>) node.getParent().getLeft()) {
-					node = (RBNode<T, E>) node.getParent();
-					rotateRight(node);
-					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
-					((RBNode<T, E>) node.getParent().getParent()).setColor(Color.RED);
+					//node = (RBNode<T, E>) node.getParent().getParent();
 					rotateLeft((RBNode<T, E>) node.getParent().getParent());
+					
+					
+				}else if(node == (RBNode<T, E>) node.getParent().getRight() && aux != null && aux.getColor() == Color.RED) {
+					node.setColor(Color.BLACK);
+					rotateLeft((RBNode) node.getParent().getParent());
+					
+					if(node.getParent().getParent() != null && ((RBNode<T, E>) node.getParent().getParent()).getColor() == Color.RED) {
+						node = (RBNode<T, E>) node.getParent();
+					}
+					
+				}else if(node == (RBNode<T, E>) node.getParent().getLeft() && aux != null && aux.getColor() == Color.RED) {
+					node.setColor(Color.BLACK);
+					rotateRight((RBNode) node.getParent().getParent());
+					rotateLeft((RBNode) node.getParent().getParent());
+					
+					/*if(node.getParent() != null && ((RBNode<T, E>) node.getParent()).getColor() == Color.RED) {
+						node = (RBNode<T, E>) node.getParent();
+					}*/
+					
+				}else if(aux != null && aux.getColor() == Color.RED) {
+					((RBNode<T, E>) node.getParent()).setColor(Color.BLACK);
+					((RBNode<T, E>) node.getParent().getParent()).setColor(Color.RED);
+					aux.setColor(Color.BLACK);
+					node = (RBNode<T, E>) node.getParent().getParent();
 				}
 			}
 		}
+		
+		if(rt != null) {
+			rt.setColor(Color.BLACK);
+		}
+		
 	}
+	
 }

@@ -216,15 +216,7 @@ public class AppManagerGUI {
     		if (parameter.equals("rebounds")) {
     			parameter = "reBounds";
     		}
-<<<<<<< HEAD
     		observableList = FXCollections.observableArrayList(appManager.linearSearch(parameter,txtSearchValue.getText()));
-=======
-    		/*System.out.println(parameter);
-    		System.out.println(txtSearchValue.getText());
-    		System.out.println("1");*/
-    		observableList = FXCollections.observableArrayList(appManager.searchWithTree(parameter,txtSearchValue.getText()));
-    		//System.out.println(appManager.linearSearch(cbSearchParameter.getValue(),txtSearchValue.getText()));
->>>>>>> 9a90cb5df85a0913ec645148a5a060d5e5224954
     		tvSimilarPlayers.setItems(observableList);
     		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
     		
