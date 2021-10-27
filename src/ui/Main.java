@@ -8,20 +8,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.AppManager;
+
 
 public class Main extends Application{
 	
 	private double xOffset = 0;
     private double yOffset = 0;
 
-	private AppManager app;
+	
 	private AppManagerGUI appManagerGUI;
 	
 	public Main() {
-		app=new AppManager();
-		appManagerGUI = new AppManagerGUI(app);
-		
+		appManagerGUI = new AppManagerGUI();
 	}
 	
 	public static void main(String[] args) {

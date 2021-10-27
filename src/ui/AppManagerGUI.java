@@ -61,8 +61,8 @@ public class AppManagerGUI {
     @FXML
     private Label warningLabel;
     
-	public AppManagerGUI(AppManager app) {
-		appManager = app;
+	public AppManagerGUI() {
+		appManager = new AppManager();
 		try {
 			appManager.importPlayerDataBase();
 			appManager.callCreatBinarySearchTreeThread();
@@ -76,7 +76,7 @@ public class AppManagerGUI {
 	// Therefore, we're reloading the controller
 	@FXML
 	public void initialize() {
-		System.out.println("alo");
+		
 		/*try {
 			//loadList(null);
 		} catch (IOException e) {
@@ -205,7 +205,7 @@ public class AppManagerGUI {
     private Label labWarning;
 
     @FXML
-    void searchPlayers(ActionEvent event) {
+    public void searchPlayers(ActionEvent event) {
     	
     	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null && txtBegRange.getText().equals("") && txtEndRange.getText().equals("")) {
     		
@@ -245,7 +245,7 @@ public class AppManagerGUI {
     }
     
     @FXML
-    void showPlayerInfo(MouseEvent event) {
+    public void showPlayerInfo(MouseEvent event) {
     	if(tvSimilarPlayers.getSelectionModel().getSelectedItem() != null) {
 			Player player = tvSimilarPlayers.getSelectionModel().getSelectedItem();
 			

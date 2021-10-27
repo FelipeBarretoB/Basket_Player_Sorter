@@ -5,13 +5,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import Threads.CreateBinarySearchTreeThread;
-import Threads.ImportDataBaseThread;
-import Threads.LinearSearchThread;
-import Threads.LinearSearchWithRange;
+
 import dataStructureTrees.BinaryTree;
 import dataStructureTrees.Node;
 import dataStructureTrees.RedBlackTree;
+import threads.CreateBinarySearchTreeThread;
+import threads.ImportDataBaseThread;
+import threads.LinearSearchThread;
+import threads.LinearSearchWithRange;
 
 public class AppManager {
 
