@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import dataStructureTrees.BinaryTree;
 import dataStructureTrees.Node;
 import dataStructureTrees.RedBlackTree;
@@ -22,6 +21,7 @@ public class AppManager {
 	private LinearSearchWithRange linearSearchWithRange;
 	private List<BinaryTree<Integer, Player>> binarySearchTrees;
 	private CreateBinarySearchTreeThread createBinarySearchTree;
+	private double time;
 
 	public AppManager(){
 		players=new ArrayList<>();
@@ -102,6 +102,8 @@ public class AppManager {
 
 	public ArrayList<Player> searchWithTree(String search, String searchedFor) {
 		int index = 0;
+		double first=0;
+		double second=0;
 		switch (search) {
 		case "age":
 			System.out.println("a");
@@ -122,12 +124,18 @@ public class AppManager {
 		}
 		ArrayList<Player> pl = new ArrayList<Player>();
 		if (index != -1) {
+			first = System.nanoTime();
 			ArrayList<Node<Integer,Player>> temp=binarySearchTrees.get(index).getSameValueNodes(Integer.parseInt(searchedFor), null);
+			second = System.nanoTime();
+			time=(second - first)/1000000000;
 			for(int c=0;c<temp.size();c++) {
 				pl.add(temp.get(c).getPlayer());
 			}
 		}else {
+			first = System.nanoTime();
 			pl = linearSearch(search, searchedFor);
+			second = System.nanoTime();
+			time=(second - first)/1000000000;
 		}
 		return pl;
 	}
@@ -150,14 +158,16 @@ public class AppManager {
 
 
 	public void creatBinarySearchTree() {
-		int i=1;
+		int i=0;
 		String[] values= {"age","points","reBounds","blocks"};
 		double first = System.nanoTime();
+		/*
 		binarySearchTrees.add(new RedBlackTree<Integer, Player>());
 		for(int c=0;c<players.size();c++) {
 			binarySearchTrees.get(0).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
 		}
-		while(i<3) {
+		*/
+		while(i<4) {
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
 			for(int c=0;c<players.size();c++) {
 				binarySearchTrees.get(i).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
@@ -202,6 +212,10 @@ public class AppManager {
 		modify(2, "SAPO DE MIERDA", "wewewewewewewe", 69, 69, 69, 69, 69, 69);
 		System.out.println("DESPUES \n \n");
 		binarySearchTrees.get(i).printTree(binarySearchTrees.get(i).getRoot());
+	}
+	
+	public double getTime() {
+		return time;
 	}
 
 }

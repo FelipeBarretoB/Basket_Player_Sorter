@@ -107,6 +107,7 @@ public class AppManagerGUI {
 		tcPlayerPoints.setCellValueFactory(new PropertyValueFactory<Player,String>("points"));
 		tcPlayerRebounds.setCellValueFactory(new PropertyValueFactory<Player,String>("reBounds"));
 		tcPlayerSteals.setCellValueFactory(new PropertyValueFactory<Player,String>("steals"));
+		tcPlayerBlocks.setCellValueFactory(new PropertyValueFactory<Player,String>("blocks"));
 		tcPlayerTeam.setCellValueFactory(new PropertyValueFactory<Player,String>("team"));
 	}
 	
@@ -196,6 +197,9 @@ public class AppManagerGUI {
     private Label labPlayerSteals;
     
     @FXML
+    private Label labPlayerSearchTime;
+    
+    @FXML
     private TextField txtBegRange;
 
     @FXML
@@ -217,7 +221,7 @@ public class AppManagerGUI {
     		if (parameter.equals("rebounds")) {
     			parameter = "reBounds";
     		}
-    		observableList = FXCollections.observableArrayList(appManager.linearSearch(parameter,txtSearchValue.getText()));
+    		observableList = FXCollections.observableArrayList(appManager.searchWithTree(parameter,txtSearchValue.getText()));
     		tvSimilarPlayers.setItems(observableList);
     		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
     		
@@ -233,7 +237,11 @@ public class AppManagerGUI {
     			labPlayerBlocks.setText("Blocks: " + player.getBlocks());
     			labPlayerAssists.setText("Assists: " + player.getAssists());
     			labPlayerSteals.setText("Steals: " + player.getSteals());
-    			
+    			if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("reBounds")||cbSearchParameter.getValue().equals("blocks")) {
+    				labPlayerSearchTime.setText("ABB time "+ appManager.getTime()+"s");
+    			}else {
+    				labPlayerSearchTime.setText("linear search "+ appManager.getTime()+"s");
+    			}
     			changeImage();
     		} else {
     			labWarning.setText("No se ha encontrado ningún jugador con ese parametro!");

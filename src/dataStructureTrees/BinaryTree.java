@@ -3,7 +3,7 @@ package dataStructureTrees;
 import java.util.ArrayList;
 
 
-public class BinaryTree<T,E> {
+public class BinaryTree<T,E> implements BinaryTreeInterface<T, E>{
 	private Node<T,E> root;
 
 	public BinaryTree() {
@@ -89,7 +89,7 @@ public class BinaryTree<T,E> {
 			// If it's the number
 			if (node.compareTo(current.getVal()) == 0) {
 				nodes.add(current);
-				System.out.println(current.getVal());
+				
 				current = current.getRight();
 				// If is greater
 			} else if (node.compareTo(current.getVal()) > 0) {
@@ -99,7 +99,7 @@ public class BinaryTree<T,E> {
 				current = current.getLeft();
 			}
 		}
-		System.out.println("acaba");
+		
 		return nodes;
 	}
 

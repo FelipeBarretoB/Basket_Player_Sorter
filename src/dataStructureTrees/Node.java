@@ -2,7 +2,7 @@ package dataStructureTrees;
 
 
 
-public class Node<T,E> implements Comparable<T>{
+public class Node<T,E> implements Comparable<T>, NodeInterface<T,E>{
 	
 	private E player;
 	private T val;
