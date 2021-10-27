@@ -210,13 +210,31 @@ public class AppManagerGUI {
 
     @FXML
     public void searchPlayers(ActionEvent event) {
-    	
-    	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null && txtBegRange.getText().equals("") && txtEndRange.getText().equals("")) {
-    		
+    	ObservableList<Player> observableList;
+    	if(txtSearchValue.getText().equals("") && cbSearchParameter.getValue() == null && txtBegRange.getText().equals("") && txtEndRange.getText().equals("")) {
+    		labWarning.setText("Por favor ingrese los datos a buscar");
+    	}else if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null && !txtBegRange.getText().equals("") && !txtEndRange.getText().equals("")) {
+    		labWarning.setText("Por favor busque solo en rango o individualmente");
+    	}else if(!txtBegRange.getText().equals("") && !txtEndRange.getText().equals("") && cbSearchParameter.getValue() != null) {
+    		try {
+    			String parameter = cbSearchParameter.getValue().toLowerCase();
+        		if (parameter.equals("rebounds")) {
+        			parameter = "reBounds";
+        		}
+        		
+        		observableList = FXCollections.observableArrayList(appManager.callLinearSearchWithRange(Integer.parseInt(txtBegRange.getText()),Integer.parseInt(txtEndRange.getText()),parameter));
+        		tvSimilarPlayers.setItems(observableList);
+        		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+        		
+    			
+    		}catch(NumberFormatException nfe) {
+    			labWarning.setText("Por favor ingrese valores numéricos para buscar en rango");
+    		}catch(Exception e) {
+    			System.out.println("b");
+    		}
     	}
     	//linearSearch
-    	if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null) {
-    		ObservableList<Player> observableList;
+    	else if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null) {
     		String parameter = cbSearchParameter.getValue().toLowerCase();
     		if (parameter.equals("rebounds")) {
     			parameter = "reBounds";

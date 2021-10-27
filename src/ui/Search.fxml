@@ -88,11 +88,11 @@
       </Label>
       <TextField fx:id="txtBegRange" layoutX="151.0" layoutY="137.0" prefHeight="25.0" prefWidth="66.0" />
       <TextField fx:id="txtEndRange" layoutX="224.0" layoutY="137.0" prefHeight="25.0" prefWidth="66.0" />
-      <Label fx:id="labWarning" layoutX="462.0" layoutY="107.0" />
       <Label fx:id="labPlayerSearchTime" layoutX="195.0" layoutY="399.0" prefHeight="22.0" prefWidth="190.0" text="Search time:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
+      <Label fx:id="labWarning" layoutX="387.0" layoutY="107.0" />
    </children>
 </Pane>
