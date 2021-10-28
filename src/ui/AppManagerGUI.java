@@ -173,30 +173,6 @@ public class AppManagerGUI {
     }
     
     @FXML
-    private Label labPlayerName;
-
-    @FXML
-    private Label labPlayerAge;
-
-    @FXML
-    private Label labPlayerTeam;
-
-    @FXML
-    private Label labPlayerPoints;
-
-    @FXML
-    private Label labPlayerRebounds;
-
-    @FXML
-    private Label labPlayerBlocks;
-
-    @FXML
-    private Label labPlayerAssists;
-
-    @FXML
-    private Label labPlayerSteals;
-    
-    @FXML
     private Label labPlayerSearchTime;
     
     @FXML
@@ -207,14 +183,32 @@ public class AppManagerGUI {
 
     @FXML
     private Label labWarning;
+    
+    
+    public void activateModifyMode() {
+    	
+    }
 
     @FXML
     public void searchPlayers(ActionEvent event) {
     	ObservableList<Player> observableList;
+    	
     	if(txtSearchValue.getText().equals("") && cbSearchParameter.getValue() == null && txtBegRange.getText().equals("") && txtEndRange.getText().equals("")) {
     		labWarning.setText("Por favor ingrese los datos a buscar");
+    	}else if(txtSearchValue.getText().equals("/all")) {
+    		activateModifyMode();
+    		observableList = FXCollections.observableArrayList(appManager.getPlayers());
+    		tvSimilarPlayers.setItems(observableList);
+    		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+    		labWarning.setText("");
+			Player player = observableList.get(0);
+			
+			showPlayer(player);
+			
+			changeImage();
+    		
     	}else if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null && !txtBegRange.getText().equals("") && !txtEndRange.getText().equals("")) {
-    		labWarning.setText("Por favor busque solo en rango o individualmente");
+    		labWarning.setText("Por favor busque solo en rango o individualmente|");
     	}else if(!txtBegRange.getText().equals("") && !txtEndRange.getText().equals("") && cbSearchParameter.getValue() != null) {
     		try {
     			String parameter = cbSearchParameter.getValue().toLowerCase();
@@ -225,7 +219,22 @@ public class AppManagerGUI {
         		observableList = FXCollections.observableArrayList(appManager.callLinearSearchWithRange(Integer.parseInt(txtBegRange.getText()),Integer.parseInt(txtEndRange.getText()),parameter));
         		tvSimilarPlayers.setItems(observableList);
         		tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
-        		
+    			
+    			if (observableList.size() > 0) {
+        			labWarning.setText("");
+        			Player player = observableList.get(0);
+        			
+        			showPlayer(player);
+        			
+        			if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("reBounds")||cbSearchParameter.getValue().equals("blocks")) {
+        				labPlayerSearchTime.setText("ABB time "+ appManager.getTime()+"s");
+        			}else {
+        				labPlayerSearchTime.setText("linear search "+ appManager.getTime()+"s");
+        			}
+        			changeImage();
+        		} else {
+        			labWarning.setText("No se ha encontrado ningún jugador con ese parametro!");
+        		}
     			
     		}catch(NumberFormatException nfe) {
     			labWarning.setText("Por favor ingrese valores numéricos para buscar en rango");
@@ -247,14 +256,8 @@ public class AppManagerGUI {
     			labWarning.setText("");
     			Player player = observableList.get(0);
     			
-    			labPlayerName.setText("Name: " + player.getName());
-    			labPlayerAge.setText("Age: " + player.getAge());
-    			labPlayerTeam.setText("Team: " + player.getTeam());
-    			labPlayerPoints.setText("Points: " + player.getPoints());
-    			labPlayerRebounds.setText("Rebounds: " + player.getReBounds());
-    			labPlayerBlocks.setText("Blocks: " + player.getBlocks());
-    			labPlayerAssists.setText("Assists: " + player.getAssists());
-    			labPlayerSteals.setText("Steals: " + player.getSteals());
+    			showPlayer(player);
+    			
     			if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("reBounds")||cbSearchParameter.getValue().equals("blocks")) {
     				labPlayerSearchTime.setText("ABB time "+ appManager.getTime()+"s");
     			}else {
@@ -271,21 +274,71 @@ public class AppManagerGUI {
     }
     
     @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtAge;
+
+    @FXML
+    private TextField txtTeam;
+
+    @FXML
+    private TextField txtPoints;
+
+    @FXML
+    private TextField txtRebounds;
+
+    @FXML
+    private TextField txtBlocks;
+
+    @FXML
+    private TextField txtAssists;
+
+    @FXML
+    private TextField txtSteals;
+
+    @FXML
+    void modifyPlayer(ActionEvent event) {
+    	int x = 0;
+    	if(tvSimilarPlayers.getSelectionModel().getSelectedItem() != null) {
+			Player player = tvSimilarPlayers.getSelectionModel().getSelectedItem();
+			for(int i = 0; i < appManager.getPlayers().size(); i++) {
+				if(player == appManager.getPlayers().get(i)) {
+					x = i;
+				}
+			}
+		}
+    	
+    	appManager.getPlayers().get(x).setName(txtName.getText());
+    	appManager.getPlayers().get(x).setAge(Integer.parseInt(txtName.getText()));
+    	appManager.getPlayers().get(x).setTeam(txtName.getText());
+    	appManager.getPlayers().get(x).setPoints(Integer.parseInt(txtName.getText()));
+    	appManager.getPlayers().get(x).setReBounds(Integer.parseInt(txtName.getText()));
+    	appManager.getPlayers().get(x).setBlocks(Integer.parseInt(txtName.getText()));
+    	appManager.getPlayers().get(x).setAssists(Integer.parseInt(txtName.getText()));
+    	appManager.getPlayers().get(x).setSteals(Integer.parseInt(txtName.getText()));
+    }
+    
+    @FXML
     public void showPlayerInfo(MouseEvent event) {
     	if(tvSimilarPlayers.getSelectionModel().getSelectedItem() != null) {
 			Player player = tvSimilarPlayers.getSelectionModel().getSelectedItem();
 			
-			labPlayerName.setText("Name: " + player.getName());
-			labPlayerAge.setText("Age: " + player.getAge());
-			labPlayerTeam.setText("Team: " + player.getTeam());
-			labPlayerPoints.setText("Points: " + player.getPoints());
-			labPlayerRebounds.setText("Rebounds: " + player.getReBounds());
-			labPlayerBlocks.setText("Blocks: " + player.getBlocks());
-			labPlayerAssists.setText("Assists: " + player.getAssists());
-			labPlayerSteals.setText("Steals: " + player.getSteals());
+			showPlayer(player);
 			
 			changeImage();
 		}
+    }
+    
+    public void showPlayer(Player player) {
+    	txtName.setText(player.getName());
+		txtAge.setText(String.valueOf(player.getAge()));
+		txtTeam.setText(player.getTeam());
+		txtPoints.setText(String.valueOf(player.getPoints()));
+		txtRebounds.setText(String.valueOf(player.getReBounds()));
+		txtBlocks.setText(String.valueOf(player.getBlocks()));
+		txtAssists.setText(String.valueOf(player.getAssists()));
+		txtSteals.setText(String.valueOf(player.getSteals()));
     }
     
     public void changeImage(){
