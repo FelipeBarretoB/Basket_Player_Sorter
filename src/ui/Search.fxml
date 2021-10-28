@@ -103,6 +103,6 @@
       <TextField fx:id="txtAssists" layoutX="287.0" layoutY="385.0" />
       <TextField fx:id="txtSteals" layoutX="287.0" layoutY="407.0" />
       <Button layoutX="336.0" layoutY="475.0" mnemonicParsing="false" onAction="#modifyPlayer" text="Modify" />
-      <Label layoutX="336.0" layoutY="115.0" text="use the command &quot;/ All&quot; in the search value to see all players" />
+      <Label layoutX="336.0" layoutY="115.0" text="use the command &quot;/ all&quot; in the search value to see all players" />
    </children>
 </Pane>

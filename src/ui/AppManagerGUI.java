@@ -307,16 +307,21 @@ public class AppManagerGUI {
 					x = i;
 				}
 			}
+			
 		}
     	
-    	appManager.getPlayers().get(x).setName(txtName.getText());
-    	appManager.getPlayers().get(x).setAge(Integer.parseInt(txtName.getText()));
-    	appManager.getPlayers().get(x).setTeam(txtName.getText());
-    	appManager.getPlayers().get(x).setPoints(Integer.parseInt(txtName.getText()));
-    	appManager.getPlayers().get(x).setReBounds(Integer.parseInt(txtName.getText()));
-    	appManager.getPlayers().get(x).setBlocks(Integer.parseInt(txtName.getText()));
-    	appManager.getPlayers().get(x).setAssists(Integer.parseInt(txtName.getText()));
-    	appManager.getPlayers().get(x).setSteals(Integer.parseInt(txtName.getText()));
+    	appManager.modify(x,txtName.getText(),txtTeam.getText(),Integer.parseInt(txtAge.getText()),Integer.parseInt(txtPoints.getText()),
+    			Integer.parseInt(txtRebounds.getText()),Integer.parseInt(txtBlocks.getText()),Integer.parseInt(txtAssists.getText()),
+    			Integer.parseInt(txtSteals.getText()));
+    	
+    	/*appManager.getPlayers().get(x).setName(txtName.getText());
+    	appManager.getPlayers().get(x).setAge(Integer.parseInt(txtAge.getText()));
+    	appManager.getPlayers().get(x).setTeam(txtTeam.getText());
+    	appManager.getPlayers().get(x).setPoints(Integer.parseInt(txtPoints.getText()));
+    	appManager.getPlayers().get(x).setReBounds(Integer.parseInt(txtRebounds.getText()));
+    	appManager.getPlayers().get(x).setBlocks(Integer.parseInt(txtBlocks.getText()));
+    	appManager.getPlayers().get(x).setAssists(Integer.parseInt(txtAssists.getText()));
+    	appManager.getPlayers().get(x).setSteals(Integer.parseInt(txtSteals.getText()));*/
     }
     
     @FXML
