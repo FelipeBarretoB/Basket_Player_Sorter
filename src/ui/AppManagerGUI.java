@@ -2,6 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -260,7 +261,7 @@ public class AppManagerGUI {
 			labWarning.setText("");
 
 
-			showPlayer(0);
+			showPlayer(0, observableList);
 
 			changeImage();
 
@@ -281,7 +282,7 @@ public class AppManagerGUI {
 					labWarning.setText("");
 
 
-					showPlayer(0);
+					showPlayer(0,observableList);
 
 					if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("reBounds")||cbSearchParameter.getValue().equals("blocks")) {
 						labPlayerSearchTime.setText("ABB time "+ appManager.getTime()+"s");
@@ -313,9 +314,10 @@ public class AppManagerGUI {
 				labWarning.setText("");
 
 
-				showPlayer(0);
+				showPlayer(0, observableList);
+				System.out.println(appManager.getPlayers().get(0));
 
-				if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("reBounds")||cbSearchParameter.getValue().equals("blocks")) {
+				if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("Rebounds")||cbSearchParameter.getValue().equals("Blocks")) {
 					labPlayerSearchTime.setText("ABB time "+ appManager.getTime()+"s");
 				}else {
 					labPlayerSearchTime.setText("linear search "+ appManager.getTime()+"s");
@@ -399,7 +401,7 @@ public class AppManagerGUI {
 		if(tvSimilarPlayers.getSelectionModel().getSelectedItem() != null) {
 			for(int i = 0; i < appManager.getPlayers().size(); i++) {
 				if(tvSimilarPlayers.getSelectionModel().getSelectedItem() == appManager.getPlayers().get(i)) {
-					showPlayer(i);
+					showPlayer(i, appManager.getPlayers());
 					changeImage();
 				}
 			}
@@ -407,15 +409,15 @@ public class AppManagerGUI {
 
 	}
 
-	public void showPlayer(int index) {
-		txtName.setText(appManager.getPlayers().get(index).getName());
-		txtAge.setText(String.valueOf(appManager.getPlayers().get(index).getAge()));
-		txtTeam.setText(appManager.getPlayers().get(index).getTeam());
-		txtPoints.setText(String.valueOf(appManager.getPlayers().get(index).getPoints()));
-		txtRebounds.setText(String.valueOf(appManager.getPlayers().get(index).getReBounds()));
-		txtBlocks.setText(String.valueOf(appManager.getPlayers().get(index).getBlocks()));
-		txtAssists.setText(String.valueOf(appManager.getPlayers().get(index).getAssists()));
-		txtSteals.setText(String.valueOf(appManager.getPlayers().get(index).getSteals()));
+	public void showPlayer(int index, List<Player> ob) {
+		txtName.setText(ob.get(index).getName());
+		txtAge.setText(String.valueOf(ob.get(index).getAge()));
+		txtTeam.setText(ob.get(index).getTeam());
+		txtPoints.setText(String.valueOf(ob.get(index).getPoints()));
+		txtRebounds.setText(String.valueOf(ob.get(index).getReBounds()));
+		txtBlocks.setText(String.valueOf(ob.get(index).getBlocks()));
+		txtAssists.setText(String.valueOf(ob.get(index).getAssists()));
+		txtSteals.setText(String.valueOf(ob.get(index).getSteals()));
 	}
 
 	public void changeImage(){
