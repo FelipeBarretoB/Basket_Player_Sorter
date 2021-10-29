@@ -8,10 +8,10 @@ import java.util.List;
 import dataStructureTrees.BinaryTree;
 import dataStructureTrees.Node;
 import dataStructureTrees.RedBlackTree;
-import threads.CreateBinarySearchTreeThread;
-import threads.ImportDataBaseThread;
-import threads.LinearSearchThread;
-import threads.LinearSearchWithRange;
+import Threads.CreateBinarySearchTreeThread;
+import Threads.ImportDataBaseThread;
+import Threads.LinearSearchThread;
+import Threads.LinearSearchWithRange;
 
 public class AppManager {
 
@@ -153,6 +153,7 @@ public class AppManager {
 		while(i<4) {
 			binarySearchTrees.get(i).deleteSpecificPlayer(Integer.parseInt(modifiedPlayer.get(values[i])), modifiedPlayer);
 			binarySearchTrees.get(i).insert(Integer.parseInt(newPlayer.get(values[i])), newPlayer);
+			i++;
 		}
 	}
 

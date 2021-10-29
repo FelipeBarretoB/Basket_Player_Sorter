@@ -20,12 +20,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import model.AppManager;
+import model.Filler;
+import model.Loader;
 import model.Player;
 
 
 public class AppManagerGUI {
 	private AppManager appManager;
+	
+	private boolean loading;
 	
 	@FXML
 	private BorderPane mainPane;
@@ -61,15 +67,64 @@ public class AppManagerGUI {
     @FXML
     private Label warningLabel;
     
+    // Primitives (Shapes)
+    @FXML
+    private Line line;
+
+    private Loader l;
+
+    @FXML
+    private Rectangle rectangleContainer;
+
+    @FXML
+    private Rectangle rectangleFill;
+
+    private Filler f;
+    
 	public AppManagerGUI() {
 		appManager = new AppManager();
 		try {
 			appManager.importPlayerDataBase();
 			appManager.callCreatBinarySearchTreeThread();
+			load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void load() throws IOException{
+		/*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Welcome.fxml"));
+		fxmlLoader.setController(this);
+		Parent pane = fxmlLoader.load();
+		mainPane.setCenter(pane);
+		loading = true;
+
+        l = new Loader(line.getRotate());
+        f = new Filler(rectangleFill.getWidth(), rectangleContainer.getWidth());
+
+        new Thread() {
+            public void run() {
+                while (loading) {
+                    l.load();
+                    f.fill();
+
+                    Platform.runLater(new Thread() {
+                        public void run() {
+                            // Update figures
+                            updateLine(l.getDegrees());
+                            updateRectangle(f.getWidth());
+                        }
+                    });
+
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();*/
 	}
 	
 	//TODO There's a little problem, tho. Initialize is called everytime I change panes.
@@ -77,14 +132,16 @@ public class AppManagerGUI {
 	@FXML
 	public void initialize() {
 		
-		/*try {
-			//loadList(null);
-		} catch (IOException e) {
-			//TODO Don't mind this
-			//System.out.println("Nah, its okay bro");
-			//e.printStackTrace();
-		}*/
 	}
+	
+	public void updateLine(double x) {
+        line.setRotate(x);
+    }
+
+    public void updateRectangle(double w) {
+        rectangleFill.setWidth(w);
+    }
+	
 	//TODO we could end up needing it.
 	@FXML
 	public void exitApp(ActionEvent event) {

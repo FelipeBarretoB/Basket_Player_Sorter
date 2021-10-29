@@ -1,4 +1,4 @@
-package threads;
+package Threads;
 
 import java.util.ArrayList;
 
