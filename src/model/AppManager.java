@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import dataStructureTrees.BinaryTree;
 import dataStructureTrees.Node;
-import dataStructureTrees.RedBlackTree;
-import Threads.CreateBinarySearchTreeThread;
-import Threads.ImportDataBaseThread;
-import Threads.LinearSearchThread;
-import Threads.LinearSearchWithRange;
+//import dataStructureTrees.RedBlackTree;
+import threads.CreateBinarySearchTreeThread;
+import threads.ImportDataBaseThread;
+import threads.LinearSearchThread;
+import threads.LinearSearchWithRange;
+
 
 public class AppManager {
 
@@ -148,11 +149,23 @@ public class AppManager {
 		players.remove(index);
 		players.add(index, newPlayer);
 		System.out.println(modifiedPlayer.getName());
+		System.out.println(players.get(index).getName());
 		int i=0;
 		String[] values= {"age","points","reBounds","blocks"};
 		while(i<4) {
 			binarySearchTrees.get(i).deleteSpecificPlayer(Integer.parseInt(modifiedPlayer.get(values[i])), modifiedPlayer);
 			binarySearchTrees.get(i).insert(Integer.parseInt(newPlayer.get(values[i])), newPlayer);
+			i++;
+		}
+	}
+	
+	public void deletePlayer(int index) {
+		Player deletedPlayer=players.get(index);
+		players.remove(index);
+		int i=0;
+		String[] values= {"age","points","reBounds","blocks"};
+		while(i<4) {
+			binarySearchTrees.get(i).deleteSpecificPlayer(Integer.parseInt(deletedPlayer.get(values[i])), deletedPlayer);
 			i++;
 		}
 	}
