@@ -107,7 +107,6 @@ public class AppManager {
 		double second=0;
 		switch (search) {
 		case "age":
-			System.out.println("a");
 			index = 0;
 			break;
 		case "points":
