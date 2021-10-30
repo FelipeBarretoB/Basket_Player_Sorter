@@ -84,17 +84,22 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 	}
 	
 	
-	public void insert(T el, E player) {
+	/*public void insert(T el, E player) {
+		//System.out.println("1");
 		insertTwo(root, el, player);
-	}
+		
+	}*/
 	
 	
-	public void insertTwo(RBNode a,T el, E player) {
+	public void insert(T el, E player) {
+		//System.out.println("2");
+		//System.out.println(a);
 		RBNode<T,E> node = new RBNode<>(el, player);
 		RBNode<T,E> temp = null;
-		RBNode<T,E> current = a;
+		RBNode<T,E> current = root;
+		System.out.println(current);
 		while (current != null) {
-			
+			System.out.println("2.1111111111111111111111111");
 			temp = current;
 			if (node.getVal().hashCode() < current.getVal().hashCode()/*node.compareTo(current.getVal()) < 0*/) {
 				current = (RBNode<T, E>) current.getLeft();
@@ -106,8 +111,9 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		node.setParent(temp);
 		
 		if (temp == null) {
-			a = node;
-			a.setColor(Color.BLACK);
+			System.out.println("2.2222222222222222222222222");
+			root = node;
+			root.setColor(Color.BLACK);
 		} else if (node.getVal().hashCode() < temp.getVal().hashCode()/*node.compareTo(temp.getVal()) < 0*/) {
 			temp.setLeft(node);
 		} else {
@@ -118,6 +124,7 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 	}
 	
 	public void insertFix(RBNode<T, E> rt, RBNode<T, E> node) {
+		//System.out.println("3");
 		RBNode<T, E> aux;
 		//node.setColor(Color.RED);
 		while(node.getParent() != null && ((RBNode<T, E>) node.getParent()).getColor() == Color.RED) {

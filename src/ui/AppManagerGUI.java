@@ -281,7 +281,7 @@ public class AppManagerGUI {
 				if (observableList.size() > 0) {
 					labWarning.setText("");
 
-
+					
 					showPlayer(0,observableList);
 
 					if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("reBounds")||cbSearchParameter.getValue().equals("blocks")) {

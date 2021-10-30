@@ -193,6 +193,48 @@ public class BinaryTree<T,E> implements BinaryTreeInterface<T, E>{
 		}
 
 		return temp;
+		
+		/*public TreeNode<T> deleteNode (TreeNode<T> root, T delete) {		
+		if(root == null) {// Caso base
+			return root;
+		}
+		
+		if(delete.compareTo(root.getValue())>0){ //Si es mayor que el root			
+			root.setRight(deleteNode(root.getRight(), delete)); //Se mueve por la derecha
+			
+		}else if(delete.compareTo(root.getValue())<0){ //Si es menor que el root
+			root.setLeft(deleteNode(root.getLeft(),delete)); //Se mueve por la izquierda
+			
+		}else{ //Si delete es igual a root
+			if(root.getLeft() == null && root.getRight() == null){ //Si root es una hoja
+				root = null;
+				
+			}else if(root.getRight() != null){ //Si tiene un hijo derecho, miramos si es sucesor
+				root.setValue(successor(root)); // my worthy successor
+				root.setRight(deleteNode(root.getRight(), root.getValue()));
+			}else{ //Si tiene un hijo izquierdo, se convierte en precedesor
+				root.setValue(predecessor(root));
+				root.setLeft(deleteNode(root.getLeft(), root.getValue()));
+			}
+		}
+		return root;
+	}	
+	
+	private T successor(TreeNode<T> root){
+        root = root.getRight();
+        while(root.getLeft() != null){
+            root = root.getLeft();
+        }
+        return root.getValue();
+    }
+    
+    private T predecessor(TreeNode<T> root){
+        root = root.getLeft();
+        while(root.getRight() != null){
+            root = root.getRight();
+        }
+        return root.getValue();
+    }*/
 	}
 
 	public Node<T,E> searchSpecificPlayer(T el, E player) {
@@ -218,6 +260,7 @@ public class BinaryTree<T,E> implements BinaryTreeInterface<T, E>{
 		} else {
 			return null;
 		}
+		System.out.println(current.getPlayer() + "\nSEARCH");
 		return current;
 	}
 

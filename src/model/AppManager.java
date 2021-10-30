@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import dataStructureTrees.BinaryTree;
 import dataStructureTrees.Node;
+import dataStructureTrees.RedBlackTree;
 //import dataStructureTrees.RedBlackTree;
 import threads.CreateBinarySearchTreeThread;
 import threads.ImportDataBaseThread;
@@ -146,14 +147,17 @@ public class AppManager {
 
 		Player modifiedPlayer=players.get(index);
 		Player newPlayer= new Player(name, team, age, points, reBounds, blocks, assists, steals);
+		//TODO sPodemos hacer players.get(index) = newPlayer; O algo parecido con un set
 		players.remove(index);
 		players.add(index, newPlayer);
 		System.out.println(modifiedPlayer.getName());
 		System.out.println(players.get(index).getName());
 		int i=0;
 		String[] values= {"age","points","reBounds","blocks"};
+		// TODO Verificar que valores vamos a editar, pues si editamos el nombre, también estamos eliminando y volviendo a insertar.
 		while(i<4) {
-			binarySearchTrees.get(i).deleteSpecificPlayer(Integer.parseInt(modifiedPlayer.get(values[i])), modifiedPlayer);
+			// TODO Está eliminando mal, elimina el primero que encuentre, no al que se busca
+			System.out.println(binarySearchTrees.get(i).deleteSpecificPlayer(Integer.parseInt(modifiedPlayer.get(values[i])), modifiedPlayer).getPlayer());
 			binarySearchTrees.get(i).insert(Integer.parseInt(newPlayer.get(values[i])), newPlayer);
 			i++;
 		}
@@ -172,15 +176,15 @@ public class AppManager {
 
 
 	public void creatBinarySearchTree() {
-		int i=0;
+		int i=1;
 		String[] values= {"age","points","reBounds","blocks"};
 		double first = System.nanoTime();
-		/*
+		
 		binarySearchTrees.add(new RedBlackTree<Integer, Player>());
 		for(int c=0;c<players.size();c++) {
 			binarySearchTrees.get(0).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
 		}
-		*/
+		
 		while(i<4) {
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
 			for(int c=0;c<players.size();c++) {
