@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public interface BinaryTreeInterface<T,E> {
 
+	public Node<T,E> getRoot();
 	
 	public void insert(T el, E player);
 	

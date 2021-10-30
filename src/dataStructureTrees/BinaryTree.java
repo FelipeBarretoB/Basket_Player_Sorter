@@ -40,18 +40,6 @@ public class BinaryTree<T,E> implements BinaryTreeInterface<T, E>{
 		} else {
 			temp.setRight(node);
 		}
-
-		//System.out.println(node.getVal());
-		/*if (temp != null) {
-			System.out.println("-----PARENT " + temp.getVal() + " -----");
-			System.out.println("Added child: " + node.getVal());
-			if (temp.getLeft() != null) {
-				System.out.println("Node left: " + temp.getLeft().getVal());
-			}
-			if (temp.getRight() != null ) {
-				System.out.println("Node right: " + temp.getRight().getVal());
-			}			
-		}*/
 	}
 
 	public Node<T,E> search(T el, E player) {
@@ -59,7 +47,6 @@ public class BinaryTree<T,E> implements BinaryTreeInterface<T, E>{
 		Node<T,E> current = root;
 		boolean notFound = false;
 		if (root != null) {
-
 			while (current != null && !notFound) {
 				// If it's the number
 				if (node.compareTo(current.getVal()) == 0) {
@@ -72,8 +59,6 @@ public class BinaryTree<T,E> implements BinaryTreeInterface<T, E>{
 					current = current.getLeft();
 				}
 			}
-		} else {
-			return null;
 		}
 		return current;
 	}
@@ -215,8 +200,6 @@ public class BinaryTree<T,E> implements BinaryTreeInterface<T, E>{
 					current = current.getLeft();
 				}
 			}
-		} else {
-			return null;
 		}
 		return current;
 	}
