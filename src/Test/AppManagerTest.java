@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.BufferedReader;
@@ -11,7 +11,7 @@ import model.Player;
 
 public class AppManagerTest {
 	private AppManager appManager;
-	
+
 	public void setupScenario1() {
 		appManager=new AppManager();	
 	}
@@ -30,14 +30,19 @@ public class AppManagerTest {
 		br.close();
 		int i=0;
 		String[] values= {"age","points","reBounds","blocks"};
-		appManager.getBinarySearchTrees().add(new BinaryTree<Integer, Player>());
-		for(int c=0;c<5;c++) {
-			appManager.getBinarySearchTrees().get(i).insert(Integer.parseInt(appManager.getPlayers().get(c).get(values[i])), appManager.getPlayers().get(c));
+		
+		while(i<4) {
+			appManager.getBinarySearchTrees().add(new BinaryTree<Integer, Player>());
+			for(int c=0;c<5;c++) {
+				appManager.getBinarySearchTrees().get(i).insert(Integer.parseInt(appManager.getPlayers().get(c).get(values[i])), appManager.getPlayers().get(c));
+			}
+			i++;
 		}
+
 	}
-	
+
 	@Test
-	void testImport() {
+	public void testImport() {
 		setupScenario1();
 		try {
 			appManager.importPlayerDataBase();
@@ -46,5 +51,96 @@ public class AppManagerTest {
 			fail("Error en el br");
 		}
 	}
+	
+	@Test
+	public void testTreeCreation() {
+		setupScenario1();
+		try {
+			appManager.importPlayerDataBase();
+		} catch (IOException e) {
+			fail("Error en el br");
+		}
+		appManager.creatBinarySearchTree();
+		assertEquals(4,appManager.getBinarySearchTrees().size() );
+	}
+	 
+	@Test
+	public void testLinearSearchForFirstPlayerWithValue() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertEquals(appManager.getPlayers().get(2),appManager.linearSearchForFirstPlayerWithValue("name", "Tori"));
+	}
 
+	@Test
+	public void testlinearSearchWithRange1() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertEquals(5,appManager.linearSearchWithRange(20, 39, "age").size());
+	}
+
+	@Test
+	public void testlinearSearchWithRange2() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertEquals(2,appManager.linearSearchWithRange(30, 39, "age").size());
+	}
+
+	@Test
+	public void testlinearSearch() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertEquals(3,appManager.linearSearch( "age", "29").size());
+	}
+
+	@Test
+	public void testSearchWithTree() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertEquals(3,appManager.searchWithTree( "age", "29").size());
+	}
+
+	@Test
+	public void testSearchWithTree1() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertEquals(appManager.getPlayers().get(1),appManager.searchWithTree( "points", "33").get(0));
+	}
+	
+	@Test
+	public void testSearchWithTree2() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertEquals(2,appManager.searchWithTree( "reBounds", "2").size());
+	}
+	
+	@Test
+	public void testSearchWithTree3() {
+		try {
+			setupScenario2();
+		} catch (IOException e) {
+			fail("Error al importar datos del csv");
+		}
+		assertTrue(appManager.searchWithTree( "blocks", "2").isEmpty());
+	}
 }
