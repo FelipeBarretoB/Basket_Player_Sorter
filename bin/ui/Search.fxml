@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="529.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="734.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="262.0" layoutY="22.0" text="Search Player">
          <font>
@@ -76,9 +76,16 @@
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="tvSimilarPlayers" layoutX="465.0" layoutY="249.0" onMouseClicked="#showPlayerInfo" prefHeight="208.0" prefWidth="165.0">
+      <TableView fx:id="tvSimilarPlayers" layoutX="14.0" layoutY="507.0" onMouseClicked="#showPlayerInfo" prefHeight="189.0" prefWidth="694.0">
         <columns>
-          <TableColumn fx:id="tcPlayerData" prefWidth="162.0" text="Players found" />
+          <TableColumn fx:id="tcPlayerData" prefWidth="120.0" text="Name" />
+            <TableColumn fx:id="tcPlayerData1" prefWidth="68.0" text="Team" />
+            <TableColumn fx:id="tcPlayerData2" prefWidth="79.0" text="Age" />
+            <TableColumn fx:id="tcPlayerData3" prefWidth="86.0" text="Points" />
+            <TableColumn fx:id="tcPlayerData4" prefWidth="83.0" text="Rebounds" />
+            <TableColumn fx:id="tcPlayerData5" prefWidth="97.0" text="Blocks" />
+            <TableColumn fx:id="tcPlayerData7" prefWidth="72.0" text="Assists" />
+            <TableColumn fx:id="tcPlayerData6" prefWidth="88.0" text="Steals" />
         </columns>
       </TableView>
       <Label layoutX="38.0" layoutY="146.0" text="Or Search with range:">
@@ -88,7 +95,7 @@
       </Label>
       <TextField fx:id="txtBegRange" layoutX="184.0" layoutY="145.0" prefHeight="25.0" prefWidth="66.0" />
       <TextField fx:id="txtEndRange" layoutX="257.0" layoutY="145.0" prefHeight="25.0" prefWidth="66.0" />
-      <Label fx:id="labPlayerSearchTime" layoutX="192.0" layoutY="433.0" prefHeight="22.0" prefWidth="190.0" text="Search time:">
+      <Label fx:id="labPlayerSearchTime" layoutX="192.0" layoutY="432.0" prefHeight="22.0" prefWidth="190.0" text="Search time:">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="18.0" />
          </font>
@@ -105,5 +112,15 @@
       <Button layoutX="287.0" layoutY="475.0" mnemonicParsing="false" onAction="#modifyPlayer" text="Modify" />
       <Label layoutX="336.0" layoutY="115.0" text="use the command &quot;/ all&quot; in the search value to see all players" />
       <Button layoutX="382.0" layoutY="475.0" mnemonicParsing="false" onAction="#deletePlayer" text="Delete" />
+      <Label layoutX="13.0" layoutY="696.0" prefHeight="22.0" prefWidth="90.0" text="# Of Players:">
+         <font>
+            <Font name="Franklin Gothic Medium Cond" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="numPlayers" layoutX="108.0" layoutY="696.0" prefHeight="22.0" prefWidth="90.0">
+         <font>
+            <Font name="Franklin Gothic Medium Cond" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

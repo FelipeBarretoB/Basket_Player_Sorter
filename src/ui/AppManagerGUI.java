@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,9 @@ public class AppManagerGUI {
 
 	@FXML
 	private Label warningLabel;
+	
+	@FXML
+	private Label numPlayers;
 
 	// Primitives (Shapes)
 	@FXML
@@ -85,12 +89,17 @@ public class AppManagerGUI {
 	public AppManagerGUI() {
 		appManager = new AppManager();
 		try {
-			appManager.importPlayerDataBase();
+			if (new File(appManager.getPlayersFile()).exists()) {
+				appManager.loadData();
+			} else {				
+				appManager.importPlayerDataBase();
+			}
 			appManager.callCreatBinarySearchTreeThread();
 			load();
-		} catch (IOException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
+		
 
 	}
 
@@ -264,6 +273,7 @@ public class AppManagerGUI {
 			showPlayer(0, observableList);
 
 			changeImage();
+			numPlayers.setText(observableList.size() + "");
 
 		}else if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null && !txtBegRange.getText().equals("") && !txtEndRange.getText().equals("")) {
 			labWarning.setText("Por favor busque solo en rango o individualmente|");
@@ -293,6 +303,7 @@ public class AppManagerGUI {
 				} else {
 					labWarning.setText("No se ha encontrado ningún jugador con ese parametro!");
 				}
+				numPlayers.setText(observableList.size() + "");
 
 			}catch(NumberFormatException nfe) {
 				labWarning.setText("Por favor ingrese valores numéricos para buscar en rango");
@@ -327,6 +338,7 @@ public class AppManagerGUI {
 				labWarning.setText("No se ha encontrado ningún jugador con ese parametro!");
 			}
 
+			numPlayers.setText(observableList.size() + "");
 		}else {
 			System.out.println("a");
 		}
@@ -366,6 +378,11 @@ public class AppManagerGUI {
 							Integer.parseInt(txtSteals.getText()));
 				}
 			}
+			try {
+				appManager.savePlayers();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}else {
 			//TODO ALGUIEN META ESTO A LA GUI
@@ -394,6 +411,12 @@ public class AppManagerGUI {
 		txtBlocks.setText("");
 		txtAssists.setText("");
 		txtSteals.setText("");
+		
+		try {
+			appManager.savePlayers();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
