@@ -95,10 +95,10 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		//System.out.println(a);
 		RBNode<T,E> node = new RBNode<>(el, player);
 		RBNode<T,E> temp = null;
-		RBNode<T,E> current = root;
-		System.out.println(current);
+		RBNode<T,E> current = getRoot();
 		while (current != null) {
-			//System.out.println("2.1111111111111111111111111");
+			//System.out.println(current.getPlayer());
+			System.out.println("2 + " + el);
 			temp = current;
 			if (node.getVal().hashCode() < current.getVal().hashCode()/*node.compareTo(current.getVal()) < 0*/) {
 				current = current.getLeft();
@@ -106,20 +106,26 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 				current = current.getRight();
 			}
 		}
-		
 		node.setParent(temp);
+		/*if (temp != null) {
+			System.out.println(node.getParent().getPlayer());
+			System.out.println(node.getPlayer());
+		}*/
 		
 		if (temp == null) {
-			//System.out.println("2.2222222222222222222222222");
+			System.out.println("2.1 + " + el);
 			root = node;
 			root.setColor(Color.BLACK);
-		} else if (node.getVal().hashCode() < temp.getVal().hashCode()/*node.compareTo(temp.getVal()) < 0*/) {
+		} else if (/*node.getVal().hashCode() < temp.getVal().hashCode()*/node.compareTo(temp.getVal()) < 0) {
 			temp.setLeft(node);
+			
 		} else {
 			temp.setRight(node);
+			
 		}
 		
 		insertFix(root,node);
+		System.out.println("2.2 + " + el);
 	}
 	
 	public void insertFix(RBNode<T, E> rt, RBNode<T, E> node) {

@@ -29,7 +29,13 @@ public class Main extends Application{
 		RedBlackTree<Integer, Player> rb = new RedBlackTree<>();
 		Player pl = new Player("Gabriel","Sapetas",12,32,34,54,65,12);
 		rb.insert(Integer.parseInt(pl.get("age")), pl);
-		System.out.println(rb.getRoot().getPlayer());
+		//System.out.println(rb.getRoot().getPlayer());
+		pl = new Player("Alejandro","Sapetas",13,32,34,54,65,12);
+		rb.insert(Integer.parseInt(pl.get("age")), pl);
+		pl = new Player("Miguel","Sapetas",11,32,34,54,65,12);
+		rb.insert(Integer.parseInt(pl.get("age")), pl);
+		rb.printTree(rb.getRoot());
+		
 		//launch(args);
 		//Main ui= new Main();
 		/*try {

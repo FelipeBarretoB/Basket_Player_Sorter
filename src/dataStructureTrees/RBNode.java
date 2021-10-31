@@ -31,7 +31,7 @@ public class RBNode<T,E> extends Node<T, E> {
 	
 	@Override
 	public RBNode<T,E> getRight() {
-		return left;
+		return right;
 	}
 	
 	public void setRight(RBNode<T,E> r) {
@@ -40,7 +40,7 @@ public class RBNode<T,E> extends Node<T, E> {
 	
 	@Override
 	public RBNode<T,E> getParent() {
-		return left;
+		return parent;
 	}
 	
 	public void setParent(RBNode<T,E> p) {
