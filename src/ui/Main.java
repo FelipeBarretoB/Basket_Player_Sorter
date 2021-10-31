@@ -34,6 +34,12 @@ public class Main extends Application{
 		rb.insert(Integer.parseInt(pl.get("age")), pl);
 		pl = new Player("Miguel","Sapetas",11,32,34,54,65,12);
 		rb.insert(Integer.parseInt(pl.get("age")), pl);
+		pl = new Player("Miguel","Sapetas",5,32,34,54,65,12);
+		rb.insert(Integer.parseInt(pl.get("age")), pl);
+		pl = new Player("Miguel","Sapetas",21,32,34,54,65,12);
+		rb.insert(Integer.parseInt(pl.get("age")), pl);
+		pl = new Player("Miguel","Sapetas",14,32,34,54,65,12);
+		rb.insert(Integer.parseInt(pl.get("age")), pl);
 		rb.printTree(rb.getRoot());
 		
 		//launch(args);

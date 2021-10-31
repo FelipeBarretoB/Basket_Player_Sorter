@@ -3,6 +3,8 @@ package dataStructureTrees;
 public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 	private RBNode<T,E> root;
 	
+	private int blackHeight;
+	
 	public RedBlackTree() {
 		
 	}
@@ -42,9 +44,8 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		return aux;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public RBNode rotateRight(RBNode node){
-		RBNode aux = node.getLeft();
+	public RBNode<T,E> rotateRight(RBNode<T,E> node){
+		RBNode<T,E> aux = node.getLeft();
 		node.setLeft(aux.getRight());
 		aux.setRight(node);
 		aux.setColor(node.getColor());
@@ -82,6 +83,19 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		}
 	}
 	
+	public void calculateBlackHeight() {
+		RBNode<T,E> x = root;
+		int result = 0;
+		while (x != null) {
+			x = x.getLeft();
+			if (x != null) {				
+				if (x.getColor() == Color.BLACK) {
+					result++;
+				}
+			}
+		}
+		blackHeight = result;
+	}
 	
 	/*public void insert(T el, E player) {
 		//System.out.println("1");
@@ -124,8 +138,38 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 			
 		}
 		
-		insertFix(root,node);
+		//insertFix(root,node);	
+		calculateBlackHeight();
+		if (blackHeight >= 3) {			
+			insertFixup(node);
+		}
 		System.out.println("2.2 + " + el);
+	}
+	
+	@SuppressWarnings("unused")
+	public void insertFixup(RBNode<T,E> node) {
+		RBNode<T,E> y = null;
+		RBNode<T,E> x = root;
+		if (node != root) {			
+			while (node.getParent().getColor() == Color.BLACK) {
+				if (node.getParent() == node.getParent().getParent().getLeft()) {
+					y = node.getParent().getParent().getRight();
+					if (y.getColor() == Color.RED) {
+						node.getParent().setColor(Color.BLACK);
+						y.setColor(Color.BLACK);
+						node.getParent().getParent().setColor(Color.RED);
+						node = node.getParent().getParent();
+					} else if (node == node.getParent().getRight()) {
+						node = node.getParent();
+						rotateLeft(node);
+					}
+					node.getParent().setColor(Color.BLACK);
+					node.getParent().getParent().setColor(Color.RED);
+					rotateRight(node.getParent().getParent());
+				}
+				root.setColor(Color.BLACK);
+			}
+		}
 	}
 	
 	public void insertFix(RBNode<T, E> rt, RBNode<T, E> node) {
