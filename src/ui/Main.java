@@ -1,5 +1,7 @@
 package ui;
 
+import dataStructureTrees.RedBlackTree;
+
 //import java.io.IOException;
 
 import javafx.application.Application;
@@ -8,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Player;
 
 
 public class Main extends Application{
@@ -23,7 +26,11 @@ public class Main extends Application{
 	}
 	
 	public static void main(String[] args) {
-		launch(args);
+		RedBlackTree<Integer, Player> rb = new RedBlackTree<>();
+		Player pl = new Player("Gabriel","Sapetas",12,32,34,54,65,12);
+		rb.insert(Integer.parseInt(pl.get("age")), pl);
+		System.out.println(rb.getRoot().getPlayer());
+		//launch(args);
 		//Main ui= new Main();
 		/*try {
 			ui.app.importPlayerDataBase();

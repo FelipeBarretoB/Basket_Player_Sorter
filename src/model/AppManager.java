@@ -175,14 +175,14 @@ public class AppManager {
 
 
 	public void creatBinarySearchTree() {
-		int i=1;
+		int i=0;
 		String[] values= {"age","points","reBounds","blocks"};
 		double first = System.nanoTime();
 		
-		binarySearchTrees.add(new RedBlackTree<Integer, Player>());
+		/*binarySearchTrees.add(new RedBlackTree<Integer, Player>());
 		for(int c=0;c<players.size();c++) {
 			binarySearchTrees.get(0).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
-		}
+		}*/
 		
 		while(i<4) {
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
