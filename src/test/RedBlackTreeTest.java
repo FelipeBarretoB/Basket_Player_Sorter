@@ -26,6 +26,7 @@ class RedBlackTreeTest {
 		rbTree.insert(60, null);
 		rbTree.insert(22, null);
 		rbTree.insert(12, null);
+		//System.out.println(rbTree.getRoot().getColor());
 	}
 	
 	public void setupScenario3() {
@@ -51,14 +52,14 @@ class RedBlackTreeTest {
 	public void testInsert2() {
 		setupScenario2();
 		rbTree.insert(6, null);
-		assertTrue(((RBNode<Integer, Player>) rbTree.getRoot().getLeft().getLeft()).getColor() == Color.RED);
+		assertTrue((rbTree.getRoot().getLeft().getLeft()).getColor() == Color.RED);
 	}
 	
 	@Test
 	public void testInsert3() {
 		setupScenario3();
 		rbTree.insert(20, null);
-		assertTrue(((RBNode<Integer, Player>) rbTree.getRoot().getLeft().getRight().getRight()).getColor() == Color.RED);
+		assertTrue((rbTree.getRoot().getLeft().getRight().getRight()).getColor() == Color.RED);
 	}
 	
 	@Test

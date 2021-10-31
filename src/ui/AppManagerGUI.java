@@ -205,8 +205,8 @@ public class AppManagerGUI {
 	@FXML
 	private TableView<Player> tvSimilarPlayers;
 
-	@FXML
-	private TableColumn<Player, String> tcPlayerData;
+	/*@FXML
+	private TableColumn<Player, String> tcPlayerData;*/
 
 	@FXML
 	public void loadSearch(ActionEvent event) throws IOException {
@@ -266,7 +266,15 @@ public class AppManagerGUI {
 			activateModifyMode();
 			observableList = FXCollections.observableArrayList(appManager.getPlayers());
 			tvSimilarPlayers.setItems(observableList);
-			tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+			// TODO here too
+			tcPlayerName.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+			tcPlayerTeam.setCellValueFactory(new PropertyValueFactory<Player,String>("team"));
+			tcPlayerAge.setCellValueFactory(new PropertyValueFactory<Player,String>("age"));
+			tcPlayerPoints.setCellValueFactory(new PropertyValueFactory<Player,String>("points"));
+			tcPlayerRebounds.setCellValueFactory(new PropertyValueFactory<Player,String>("reBounds"));
+			tcPlayerBlocks.setCellValueFactory(new PropertyValueFactory<Player,String>("blocks"));
+			tcPlayerAssists.setCellValueFactory(new PropertyValueFactory<Player,String>("assists"));
+			tcPlayerSteals.setCellValueFactory(new PropertyValueFactory<Player,String>("steals"));
 			labWarning.setText("");
 
 
@@ -286,7 +294,15 @@ public class AppManagerGUI {
 
 				observableList = FXCollections.observableArrayList(appManager.callLinearSearchWithRange(Integer.parseInt(txtBegRange.getText()),Integer.parseInt(txtEndRange.getText()),parameter));
 				tvSimilarPlayers.setItems(observableList);
-				tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+				// TODO here
+				tcPlayerName.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+				tcPlayerTeam.setCellValueFactory(new PropertyValueFactory<Player,String>("team"));
+				tcPlayerAge.setCellValueFactory(new PropertyValueFactory<Player,String>("age"));
+				tcPlayerPoints.setCellValueFactory(new PropertyValueFactory<Player,String>("points"));
+				tcPlayerRebounds.setCellValueFactory(new PropertyValueFactory<Player,String>("reBounds"));
+				tcPlayerBlocks.setCellValueFactory(new PropertyValueFactory<Player,String>("blocks"));
+				tcPlayerAssists.setCellValueFactory(new PropertyValueFactory<Player,String>("assists"));
+				tcPlayerSteals.setCellValueFactory(new PropertyValueFactory<Player,String>("steals"));
 
 				if (observableList.size() > 0) {
 					labWarning.setText("");
@@ -319,7 +335,15 @@ public class AppManagerGUI {
 			}
 			observableList = FXCollections.observableArrayList(appManager.searchWithTree(parameter,txtSearchValue.getText()));
 			tvSimilarPlayers.setItems(observableList);
-			tcPlayerData.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+			// TODO here too
+			tcPlayerName.setCellValueFactory(new PropertyValueFactory<Player,String>("name"));
+			tcPlayerTeam.setCellValueFactory(new PropertyValueFactory<Player,String>("team"));
+			tcPlayerAge.setCellValueFactory(new PropertyValueFactory<Player,String>("age"));
+			tcPlayerPoints.setCellValueFactory(new PropertyValueFactory<Player,String>("points"));
+			tcPlayerRebounds.setCellValueFactory(new PropertyValueFactory<Player,String>("reBounds"));
+			tcPlayerBlocks.setCellValueFactory(new PropertyValueFactory<Player,String>("blocks"));
+			tcPlayerAssists.setCellValueFactory(new PropertyValueFactory<Player,String>("assists"));
+			tcPlayerSteals.setCellValueFactory(new PropertyValueFactory<Player,String>("steals"));
 
 			if (observableList.size() > 0) {
 				labWarning.setText("");
@@ -394,6 +418,7 @@ public class AppManagerGUI {
 
 	@FXML
 	public void deletePlayer(ActionEvent event) {
+		System.out.println(tvSimilarPlayers.getSelectionModel().getSelectedIndex());
 		if(tvSimilarPlayers.getSelectionModel().getSelectedItem() != null) {
 			for(int i = 0; i < appManager.getPlayers().size(); i++) {
 				if(tvSimilarPlayers.getSelectionModel().getSelectedItem() == appManager.getPlayers().get(i)) {
