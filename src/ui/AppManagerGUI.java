@@ -68,6 +68,9 @@ public class AppManagerGUI {
 
 	@FXML
 	private Label warningLabel;
+	
+	@FXML
+	private Label numPlayers;
 
 	// Primitives (Shapes)
 	@FXML
@@ -270,6 +273,7 @@ public class AppManagerGUI {
 			showPlayer(0, observableList);
 
 			changeImage();
+			numPlayers.setText(observableList.size() + "");
 
 		}else if(!txtSearchValue.getText().equals("") && cbSearchParameter.getValue() != null && !txtBegRange.getText().equals("") && !txtEndRange.getText().equals("")) {
 			labWarning.setText("Por favor busque solo en rango o individualmente|");
@@ -299,6 +303,7 @@ public class AppManagerGUI {
 				} else {
 					labWarning.setText("No se ha encontrado ningún jugador con ese parametro!");
 				}
+				numPlayers.setText(observableList.size() + "");
 
 			}catch(NumberFormatException nfe) {
 				labWarning.setText("Por favor ingrese valores numéricos para buscar en rango");
@@ -333,6 +338,7 @@ public class AppManagerGUI {
 				labWarning.setText("No se ha encontrado ningún jugador con ese parametro!");
 			}
 
+			numPlayers.setText(observableList.size() + "");
 		}else {
 			System.out.println("a");
 		}
