@@ -17,18 +17,59 @@ public class BinaryTreeTest {
 		binaryTree.setRoot(new Node<Integer,Player>(30,null));
 	}
 	
+	public void setupScenario2() {
+		binaryTree=new BinaryTree<Integer, Player>();
+		binaryTree.setRoot(new Node<Integer,Player>(30,null));
+		binaryTree.insert(20, null);
+		binaryTree.insert(40, null);
+	}
+	
+	public void setupScenario3() {
+		binaryTree=new BinaryTree<Integer, Player>();
+		binaryTree.setRoot(new Node<Integer,Player>(30,null));
+		binaryTree.insert(20, null);
+		binaryTree.insert(40, null);
+		binaryTree.insert(10, null);
+		binaryTree.insert(5, null);
+	}
+	
 	@Test
 	public void testInsert() {
 		setupScenario();
 		binaryTree.insert(40, null);
-		assertTrue(binaryTree.getRoot().getRight()!=null);
+		assertNotEquals(binaryTree.getRoot().getRight(),null);
 	}
 	
 	@Test
 	public void testInsert1() {
 		setupScenario();
 		binaryTree.insert(20, null);
-		assertTrue(binaryTree.getRoot().getLeft()!=null);
+		assertNotEquals(binaryTree.getRoot().getLeft(),null);
 	}
-
+	
+	@Test
+	public void testDelete() {
+		setupScenario2();
+		binaryTree.delete(20, null);
+		assertEquals(binaryTree.getRoot().getLeft(),null);
+	}
+	
+	@Test
+	public void testSearch() {
+		setupScenario2();
+		assertTrue(binaryTree.search(20, null).getPlayer()==null && binaryTree.search(20, null).getVal() == 20);
+	}
+	
+	
+	@Test
+	public void testTreeMinimum() {
+		setupScenario3();
+		assertEquals(binaryTree.treeMinimum(binaryTree.getRoot()).getVal(),5);
+	}
+	
+	@Test
+	public void testTreeSucesor() {
+		setupScenario3();
+		assertEquals(binaryTree.treeMinimum(binaryTree.getRoot()).getVal(),5);
+	}
 }
