@@ -17,6 +17,10 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		this.root = root;
 	}
 	
+	public int getBlackHeight() {
+		return blackHeight;
+	}
+	
 	/*@SuppressWarnings({ "unchecked", "rawtypes" })
 	void rotateLeft(RBNode node){
 		RBNode aux = (RBNode) node.getRight();
@@ -87,11 +91,11 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		RBNode<T,E> x = root;
 		int result = 0;
 		while (x != null) {
-			x = x.getLeft();
-			if (x != null) {				
-				if (x.getColor() == Color.BLACK) {
-					result++;
-				}
+			x = x.getRight();
+			if (x != null && x.getColor() == Color.BLACK) {				
+				result++;
+			} else if (x == null) {
+				result++;
 			}
 		}
 		blackHeight = result;
@@ -112,9 +116,9 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		RBNode<T,E> current = getRoot();
 		while (current != null) {
 			//System.out.println(current.getPlayer());
-			System.out.println("2 + " + el);
+			//System.out.println("2 + " + el);
 			temp = current;
-			if (node.getVal().hashCode() < current.getVal().hashCode()/*node.compareTo(current.getVal()) < 0*/) {
+			if (/*node.getVal().hashCode() < current.getVal().hashCode()*/node.compareTo(current.getVal()) < 0) {
 				current = current.getLeft();
 			} else {
 				current = current.getRight();
@@ -127,7 +131,7 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		}*/
 		
 		if (temp == null) {
-			System.out.println("2.1 + " + el);
+			//System.out.println("2.1 + " + el);
 			root = node;
 			root.setColor(Color.BLACK);
 		} else if (/*node.getVal().hashCode() < temp.getVal().hashCode()*/node.compareTo(temp.getVal()) < 0) {
@@ -140,18 +144,85 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		
 		//insertFix(root,node);	
 		calculateBlackHeight();
-		if (blackHeight >= 3) {			
-			insertFixup(node);
+		boolean check = checkProperties(node);
+		if (!check) {			
+			insertFixup(node);			
 		}
-		System.out.println("2.2 + " + el);
+		
+		/*if (blackHeight >= 2) {			
+			insertFixup(node);
+		}*/
+		//System.out.println("2.2 + " + el);
 	}
 	
-	@SuppressWarnings("unused")
+	public boolean checkProperties(RBNode<T,E> node) {
+		boolean pass = false;
+		// Check Property 2
+		// Check Property 4
+		// Check Property 5
+		if (propertyTwo() && propertyFour(root) && propertyFive()) {
+			System.out.println("Inside!");
+			pass = true;
+		}
+		return pass;
+	}
+	
+	public boolean propertyTwo() {
+		boolean pass = true;
+		if (root.getColor() != Color.BLACK) {
+			pass = false;
+		}
+		return pass;
+	}
+	
+	public boolean propertyFour(RBNode<T,E> node) {
+		boolean pass = true;
+		pass = inOrder(node);
+		return pass;
+	}
+	
+	public boolean inOrder(RBNode<T,E> node) {
+		if (node == null) {
+			return true;
+		}
+		if (node != null && node.getColor() == Color.RED && ((node.getLeft() != null && node.getLeft().getColor() == Color.RED) || (node.getRight() != null && node.getRight().getColor() == Color.RED))) {
+			return false;
+		} else if (node != null && node.getColor() == Color.RED && (node.getLeft() != null && node.getLeft().getColor() == Color.BLACK && node.getRight() != null && node.getRight().getColor() == Color.BLACK))  {
+			return true;
+		} else {
+			boolean partOne = inOrder(node.getLeft());
+			boolean partTwo = inOrder(node.getRight());
+			return (partOne && partTwo);
+		}
+	}
+	
+	public boolean propertyFive() {
+		boolean pass = true;
+		if (root.getColor() != Color.BLACK) {
+			pass = false;
+		}
+		return pass;
+	}
+	
+	/*public void insertionFixTwo(RBNode<T,E> node) {
+		if (node.getParent().getColor() == Color.RED) {
+			if (node == node.getParent().getParent().getLeft()) {
+				if (node.getParent().getParent().getRight().getColor() == Color.RED) {
+					node.getParent().getParent().getRight().setColor(Color.BLACK);
+					node.getParent().getParent().getLeft().setColor(Color.BLACK);
+					node.getParent().getParent().setColor(Color.RED);
+					
+				}
+			} else {
+				
+			}
+		}
+	}*/
+	
 	public void insertFixup(RBNode<T,E> node) {
 		RBNode<T,E> y = null;
-		RBNode<T,E> x = root;
 		if (node != root) {			
-			while (node.getParent().getColor() == Color.BLACK) {
+			while (node.getParent().getColor() == Color.RED) {
 				if (node.getParent() == node.getParent().getParent().getLeft()) {
 					y = node.getParent().getParent().getRight();
 					if (y.getColor() == Color.RED) {
@@ -160,6 +231,20 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 						node.getParent().getParent().setColor(Color.RED);
 						node = node.getParent().getParent();
 					} else if (node == node.getParent().getRight()) {
+						node = node.getParent();
+						rotateLeft(node);
+					}
+					node.getParent().setColor(Color.BLACK);
+					node.getParent().getParent().setColor(Color.RED);
+					rotateRight(node.getParent().getParent());
+				} else {
+					y = node.getParent().getParent().getLeft();
+					if (y.getColor() == Color.RED) {
+						node.getParent().setColor(Color.BLACK);
+						y.setColor(Color.BLACK);
+						node.getParent().getParent().setColor(Color.RED);
+						//node = node.getParent().getParent();
+					} else if (node == node.getParent().getLeft()) {
 						node = node.getParent();
 						rotateLeft(node);
 					}

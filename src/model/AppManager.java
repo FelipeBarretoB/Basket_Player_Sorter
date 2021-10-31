@@ -1,13 +1,19 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import dataStructureTrees.BinaryTree;
 import dataStructureTrees.Node;
-import dataStructureTrees.RedBlackTree;
+//import dataStructureTrees.RedBlackTree;
 //import dataStructureTrees.RedBlackTree;
 import threads.CreateBinarySearchTreeThread;
 import threads.ImportDataBaseThread;
@@ -16,6 +22,8 @@ import threads.LinearSearchWithRange;
 
 
 public class AppManager {
+	
+	public final static String PLAYERS_FILE = "./Data/players.apm";
 
 	private List<Player> players;
 	private ImportDataBaseThread importDataBaseThread;
@@ -30,6 +38,10 @@ public class AppManager {
 		importDataBaseThread= new ImportDataBaseThread(this);
 		binarySearchTrees= new ArrayList<>();
 
+	}
+	
+	public String getPlayersFile() {
+		return PLAYERS_FILE;
 	}
 
 	public void callImportDataBase() {
@@ -46,6 +58,22 @@ public class AppManager {
 			line=br.readLine();
 		}
 		br.close();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
+		File f = new File(PLAYERS_FILE);
+		if (f.exists()) {			
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+			players = (List<Player>) ois.readObject();
+			ois.close();
+		}
+	}
+	
+	public void savePlayers() throws FileNotFoundException, IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(PLAYERS_FILE));
+		oos.writeObject(players);
+		oos.close();
 	}
 
 
@@ -179,11 +207,6 @@ public class AppManager {
 		String[] values= {"age","points","reBounds","blocks"};
 		double first = System.nanoTime();
 		
-		/*binarySearchTrees.add(new RedBlackTree<Integer, Player>());
-		for(int c=0;c<players.size();c++) {
-			binarySearchTrees.get(0).insert(Integer.parseInt(players.get(c).get(values[i])), players.get(c));
-		}*/
-		
 		while(i<4) {
 			binarySearchTrees.add(new BinaryTree<Integer, Player>());
 			for(int c=0;c<players.size();c++) {
@@ -191,7 +214,13 @@ public class AppManager {
 			}
 
 			i++;
+		
 		}
+
+		/*RedBlackTree<Integer, Player> rb = new RedBlackTree<Integer, Player>();
+		for (int c = 0; c < players.size(); c++ ) {
+			rb.insert(players.get(c).getAge(), players.get(c));
+		}*/
 		double second = System.nanoTime();
 		System.out.println((second - first)/1000000000 + "-- Creation time for the 4 trees (Seconds)");
 		double searchOne = System.nanoTime();
@@ -199,6 +228,7 @@ public class AppManager {
 		double searchTwo = System.nanoTime();
 		System.out.println((searchTwo - searchOne)/1000000000 + " -- Search Time (Seconds)");
 		//System.out.println(searchWithTree("age", 20));
+		/*System.out.println(rb.getBlackHeight());*/
 	}
 
 	public void callCreatBinarySearchTreeThread() {

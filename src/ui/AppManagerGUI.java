@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,12 +86,17 @@ public class AppManagerGUI {
 	public AppManagerGUI() {
 		appManager = new AppManager();
 		try {
-			appManager.importPlayerDataBase();
+			if (new File(appManager.getPlayersFile()).exists()) {
+				appManager.loadData();
+			} else {				
+				appManager.importPlayerDataBase();
+			}
 			appManager.callCreatBinarySearchTreeThread();
 			load();
-		} catch (IOException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
+		
 
 	}
 
@@ -366,6 +372,11 @@ public class AppManagerGUI {
 							Integer.parseInt(txtSteals.getText()));
 				}
 			}
+			try {
+				appManager.savePlayers();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}else {
 			//TODO ALGUIEN META ESTO A LA GUI
@@ -394,6 +405,12 @@ public class AppManagerGUI {
 		txtBlocks.setText("");
 		txtAssists.setText("");
 		txtSteals.setText("");
+		
+		try {
+			appManager.savePlayers();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML

@@ -26,7 +26,7 @@ public class Main extends Application{
 	}
 	
 	public static void main(String[] args) {
-		RedBlackTree<Integer, Player> rb = new RedBlackTree<>();
+		/*RedBlackTree<Integer, Player> rb = new RedBlackTree<>();
 		Player pl = new Player("Gabriel","Sapetas",12,32,34,54,65,12);
 		rb.insert(Integer.parseInt(pl.get("age")), pl);
 		//System.out.println(rb.getRoot().getPlayer());
@@ -40,9 +40,18 @@ public class Main extends Application{
 		rb.insert(Integer.parseInt(pl.get("age")), pl);
 		pl = new Player("Miguel","Sapetas",14,32,34,54,65,12);
 		rb.insert(Integer.parseInt(pl.get("age")), pl);
-		rb.printTree(rb.getRoot());
+		System.out.println(rb.getBlackHeight());
+		System.out.println(rb.getRoot().getPlayer());
+		System.out.println(rb.getRoot().getColor());
+		System.out.println(rb.getRoot().getLeft().getPlayer());
+		System.out.println(rb.getRoot().getLeft().getColor());
+		System.out.println(rb.getRoot().getRight().getPlayer());
+		System.out.println(rb.getRoot().getRight().getColor());
+		System.out.println(rb.getRoot().getRight().getRight().getPlayer());
+		System.out.println(rb.getRoot().getRight().getRight().getColor());*/
+		//rb.printTree(rb.getRoot());
 		
-		//launch(args);
+		launch(args);
 		//Main ui= new Main();
 		/*try {
 			ui.app.importPlayerDataBase();
