@@ -355,7 +355,10 @@ public class AppManagerGUI {
 
 				if(cbSearchParameter.getValue().equals("Age")||cbSearchParameter.getValue().equals("Points")||cbSearchParameter.getValue().equals("Rebounds")||cbSearchParameter.getValue().equals("Blocks")) {
 					labPlayerSearchTime.setText("ABB time "+ appManager.getTime()+"s");
-				}else {
+				} else if (cbSearchParameter.getValue().equals("Assists")) {
+					labPlayerSearchTime.setText("RBTree time " + appManager.getTime() + "s");
+				}
+				else {
 					labPlayerSearchTime.setText("linear search "+ appManager.getTime()+"s");
 				}
 				changeImage();

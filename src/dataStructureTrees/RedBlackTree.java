@@ -1,5 +1,7 @@
 package dataStructureTrees;
 
+import java.util.ArrayList;
+
 public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 	private RBNode<T,E> root;
 	
@@ -115,7 +117,9 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		} else {
 			u.getParent().setRight(v);
 		}
-		v.setParent(u.getParent());
+		if (u != root) {
+			v.setParent(u.getParent());
+		}
 	}
 	
 	public void rbDelete(RBNode<T,E> node) {
@@ -148,7 +152,7 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 			rbDeleteFixup(x);
 		}
 	}
-	
+
 	public void rbDeleteFixup(RBNode<T,E> x) {
 		RBNode<T,E> w = null;
 		while (x != root && x.getColor() == Color.BLACK) {
@@ -222,6 +226,27 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		return current;
 	}
 	
+	public ArrayList<RBNode<T, E>> getRBSameValueNodes(T el, E player){
+		RBNode<T,E> node = new RBNode<>(el,player);
+		RBNode<T,E> current = root;
+		ArrayList<RBNode<T,E>> nodes = new ArrayList<RBNode<T,E>>();
+		while (current != null ) {
+			// If it's the number
+			if (node.compareTo(current.getVal()) == 0) {
+				nodes.add(current);
+				current = current.getRight();
+				// If is greater
+			} else if (node.compareTo(current.getVal()) > 0) {
+				current = current.getRight();
+				// If is smaller
+			} else {
+				current = current.getLeft();
+			}
+		}
+		
+		return nodes;
+	}
+	
 	public void calculateBlackHeight() {
 		RBNode<T,E> x = root;
 		int result = 0;
@@ -263,10 +288,6 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		calculateBlackHeight();
 		boolean check = checkProperties(node);
 		if (!check) {
-			/*System.out.println(temp.getVal());
-			System.out.println(temp.getLeft().getVal());
-			System.out.println(node.getParent().getVal());
-			System.out.println(node.getParent().getColor());*/
 			insertFixup(node);			
 		}
 		
@@ -278,7 +299,6 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		// Check Property 4
 		// Check Property 5
 		if (propertyTwo() && propertyFour(root) && propertyFive()) {
-			System.out.println("Inside!");
 			pass = true;
 		}
 		return pass;

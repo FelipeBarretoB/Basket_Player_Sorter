@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import dataStructureTrees.BinaryTree;
 import dataStructureTrees.Node;
+import dataStructureTrees.RBNode;
+import dataStructureTrees.RedBlackTree;
 //import dataStructureTrees.RedBlackTree;
 //import dataStructureTrees.RedBlackTree;
 import threads.CreateBinarySearchTreeThread;
@@ -31,6 +33,7 @@ public class AppManager {
 	private LinearSearchWithRange linearSearchWithRange;
 	private List<BinaryTree<Integer, Player>> binarySearchTrees;
 	private CreateBinarySearchTreeThread createBinarySearchTree;
+	private RedBlackTree<Integer, Player> rbTree;
 	private double time;
 
 	public AppManager(){
@@ -147,6 +150,17 @@ public class AppManager {
 		case "blocks":
 			index = 3;
 			break;
+		case "assists":
+			ArrayList<Player> pl= new ArrayList<Player>();
+			ArrayList<RBNode<Integer, Player>> nodes= new ArrayList<>();
+			first = System.nanoTime();
+			nodes = rbTree.getRBSameValueNodes(Integer.parseInt(searchedFor), null);
+			second = System.nanoTime();
+			time=(second - first)/1000000000;
+			for (int c = 0; c < nodes.size(); c++) {
+				pl.add(nodes.get(c).getPlayer());
+			}
+			return pl;
 		default:
 			index = -1;
 			break;
@@ -188,6 +202,9 @@ public class AppManager {
 			binarySearchTrees.get(i).insert(Integer.parseInt(newPlayer.get(values[i])), newPlayer);
 			i++;
 		}
+		RBNode<Integer, Player> node = rbTree.searchRB(modifiedPlayer.getAssists(), modifiedPlayer);
+		rbTree.rbDelete(node);
+		rbTree.insert(newPlayer.getAssists(), newPlayer);
 	}
 	
 	public void deletePlayer(int index) {
@@ -199,6 +216,8 @@ public class AppManager {
 			binarySearchTrees.get(i).deleteSpecificPlayer(Integer.parseInt(deletedPlayer.get(values[i])), deletedPlayer);
 			i++;
 		}
+		RBNode<Integer, Player> node = rbTree.searchRB(deletedPlayer.getAssists(), deletedPlayer);
+		rbTree.rbDelete(node);
 	}
 
 
@@ -216,13 +235,18 @@ public class AppManager {
 			i++;
 		
 		}
+		
+		rbTree = new RedBlackTree<Integer, Player>();
+		for (int c = 0; c < players.size(); c++ ) {
+			rbTree.insert(players.get(c).getAssists(), players.get(c));
+		}
 
 		/*RedBlackTree<Integer, Player> rb = new RedBlackTree<Integer, Player>();
 		for (int c = 0; c < players.size(); c++ ) {
 			rb.insert(players.get(c).getAge(), players.get(c));
 		}*/
 		double second = System.nanoTime();
-		System.out.println((second - first)/1000000000 + "-- Creation time for the 4 trees (Seconds)");
+		System.out.println((second - first)/1000000000 + "-- Creation time for the 5 trees (Seconds)");
 		double searchOne = System.nanoTime();
 		System.out.println(binarySearchTrees.get(1).search(98, null).getPlayer().getName());
 		double searchTwo = System.nanoTime();
