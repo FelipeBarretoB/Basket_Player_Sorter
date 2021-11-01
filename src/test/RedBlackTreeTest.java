@@ -56,20 +56,23 @@ class RedBlackTreeTest {
 	}
 	
 	@Test
-	public void testInsert3() {
-		setupScenario3();
-		rbTree.insert(20, null);
-		System.out.println(rbTree.getRoot().getLeft().getRight().getRight());
-		System.out.println(rbTree.searchRB(20, null).getParent().getParent().getVal());
-		assertTrue((rbTree.getRoot().getLeft().getRight().getRight()).getColor() == Color.RED);
-	}
-	
-	@Test
 	public void testDelete() {
 		setupScenario2();
 		//rbTree.delete(22, null);
 		rbTree.rbDelete(rbTree.searchRB(22, null));
 		assertNotEquals(rbTree.getRoot().getLeft().getVal(),22);
+	}
+	
+	@Test
+	public void testGetBlackHeight() {
+		setupScenario2();
+		assertNotEquals(rbTree.getBlackHeight(),2);
+	}
+	
+	@Test
+	public void testSearch() {
+		setupScenario3();
+		assertNotEquals(rbTree.search(12,null),new RBNode(12,null));
 	}
 
 }
