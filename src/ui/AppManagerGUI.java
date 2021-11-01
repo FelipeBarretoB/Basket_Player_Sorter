@@ -363,6 +363,7 @@ public class AppManagerGUI {
 			}
 
 			numPlayers.setText(observableList.size() + "");
+			tvSimilarPlayers.getSelectionModel().selectFirst();
 		}else {
 			System.out.println("a");
 		}

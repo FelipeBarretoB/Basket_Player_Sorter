@@ -38,6 +38,7 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		node.setColor(Color.RED);
 		return aux;
 	}
+	
 	public void leftRotate(RBNode<T,E> node) {
 		RBNode<T,E> y = node.getRight();
 		node.setRight(y.getLeft());

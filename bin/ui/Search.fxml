@@ -78,14 +78,14 @@
       </Label>
       <TableView fx:id="tvSimilarPlayers" layoutX="14.0" layoutY="507.0" onMouseClicked="#showPlayerInfo" prefHeight="189.0" prefWidth="694.0">
         <columns>
-          <TableColumn fx:id="tcPlayerData" prefWidth="120.0" text="Name" />
-            <TableColumn fx:id="tcPlayerData1" prefWidth="68.0" text="Team" />
-            <TableColumn fx:id="tcPlayerData2" prefWidth="79.0" text="Age" />
-            <TableColumn fx:id="tcPlayerData3" prefWidth="86.0" text="Points" />
-            <TableColumn fx:id="tcPlayerData4" prefWidth="83.0" text="Rebounds" />
-            <TableColumn fx:id="tcPlayerData5" prefWidth="97.0" text="Blocks" />
-            <TableColumn fx:id="tcPlayerData7" prefWidth="72.0" text="Assists" />
-            <TableColumn fx:id="tcPlayerData6" prefWidth="88.0" text="Steals" />
+          <TableColumn fx:id="tcPlayerName" prefWidth="120.0" text="Name" />
+            <TableColumn fx:id="tcPlayerTeam" prefWidth="68.0" text="Team" />
+            <TableColumn fx:id="tcPlayerAge" prefWidth="79.0" text="Age" />
+            <TableColumn fx:id="tcPlayerPoints" prefWidth="86.0" text="Points" />
+            <TableColumn fx:id="tcPlayerRebounds" prefWidth="83.0" text="Rebounds" />
+            <TableColumn fx:id="tcPlayerBlocks" prefWidth="97.0" text="Blocks" />
+            <TableColumn fx:id="tcPlayerAssists" prefWidth="72.0" text="Assists" />
+            <TableColumn fx:id="tcPlayerSteals" prefWidth="88.0" text="Steals" />
         </columns>
       </TableView>
       <Label layoutX="38.0" layoutY="146.0" text="Or Search with range:">
