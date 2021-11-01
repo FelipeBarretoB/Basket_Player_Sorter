@@ -222,6 +222,7 @@ public class AppManagerGUI {
 		values.add("Assists");
 		values.add("Points");
 		values.add("Rebounds");
+		values.add("Blocks");
 		values.add("Steals");
 		values.add("Team");
 		observableList = FXCollections.observableArrayList(values);
