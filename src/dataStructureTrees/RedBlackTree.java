@@ -107,6 +107,121 @@ public class RedBlackTree<T,E> extends BinaryTree<T,E> {
 		}
 	}
 	
+	public void rbTransplant(RBNode<T,E> u, RBNode<T,E> v) {
+		if (u.getParent() == null) {
+			root = v;
+		} else if (u == u.getParent().getLeft()) {
+			u.getParent().setLeft(v);
+		} else {
+			u.getParent().setRight(v);
+		}
+		v.setParent(u.getParent());
+	}
+	
+	public void rbDelete(RBNode<T,E> node) {
+		RBNode<T,E> y = node;
+		RBNode<T,E> x = null;
+		Color originalColor = y.getColor();
+		if (node.getLeft() == null) {
+			x = node.getRight();
+			rbTransplant(node, node.getLeft());
+		} else if(node.getRight() == null) {
+			x = node.getLeft();
+			rbTransplant(node, node.getLeft());
+		} else {
+			y = (RBNode<T, E>) treeMinimum(node.getRight());
+			originalColor = y.getColor();
+			x = y.getRight();
+			if (y.getParent() == node) {
+				x.setParent(y);
+			} else {
+				rbTransplant(y, y.getRight());
+				y.setRight(node.getRight());
+				y.getRight().setParent(y);
+			}
+			rbTransplant(node,y);
+			y.setLeft(node.getLeft());
+			y.getLeft().setParent(y);
+			y.setColor(node.getColor());
+		}
+		if (originalColor == Color.BLACK) {
+			rbDeleteFixup(x);
+		}
+	}
+	
+	public void rbDeleteFixup(RBNode<T,E> x) {
+		RBNode<T,E> w = null;
+		while (x != root && x.getColor() == Color.BLACK) {
+			if (x == x.getParent().getLeft()) {
+				w = x.getParent().getRight();
+				if (w.getColor() == Color.RED) {
+					w.setColor(Color.BLACK);
+					x.getParent().setColor(Color.RED);
+					leftRotate(x.getParent());
+					w = x.getParent().getRight();
+				}
+				if (w.getLeft().getColor() == Color.BLACK && w.getRight().getColor() == Color.BLACK) {
+					w.setColor(Color.RED);
+					x = x.getParent();
+				} else if (w.getRight().getColor() == Color.BLACK) {
+					w.getLeft().setColor(Color.BLACK);
+					w.setColor(Color.RED);
+					rightRotate(w);
+					w = x.getParent().getRight();
+				}
+				w.setColor(x.getParent().getColor());
+				x.getParent().setColor(Color.BLACK);
+				w.getRight().setColor(Color.BLACK);
+				leftRotate(x.getParent());
+				x = root;
+			} else {
+				w = x.getParent().getLeft();
+				if (w.getColor() == Color.RED) {
+					w.setColor(Color.BLACK);
+					x.getParent().setColor(Color.RED);
+					rightRotate(x.getParent());
+					w = x.getParent().getLeft();
+				}
+				if (w.getRight().getColor() == Color.BLACK && w.getLeft().getColor() == Color.BLACK) {
+					w.setColor(Color.RED);
+					x = x.getParent();
+				} else if (w.getLeft().getColor() == Color.BLACK) {
+					w.getRight().setColor(Color.BLACK);
+					w.setColor(Color.RED);
+					leftRotate(w);
+					w = x.getParent().getLeft();
+				}
+				w.setColor(x.getParent().getColor());
+				x.getParent().setColor(Color.BLACK);
+				w.getLeft().setColor(Color.BLACK);
+				rightRotate(x.getParent());
+				x = root;
+			}
+			x.setColor(Color.BLACK);
+		}
+	}
+	
+	public RBNode<T,E> searchRB(T el, E player) {
+		RBNode<T,E> node = new RBNode<T,E>(el, player);
+		RBNode<T,E> current = root;
+		boolean notFound = false;
+		if (root != null) {
+			while (current != null && !notFound) {
+				// If it's the number
+				if (node.compareTo(current.getVal()) == 0) {
+					notFound = true;
+					// If is greater
+				} else if (node.compareTo(current.getVal()) > 0) {
+					current = current.getRight();
+					// If is smaller
+				} else {
+					current = current.getLeft();
+				}
+			}
+		}
+		return current;
+	}
+	
 	public void calculateBlackHeight() {
 		RBNode<T,E> x = root;
 		int result = 0;

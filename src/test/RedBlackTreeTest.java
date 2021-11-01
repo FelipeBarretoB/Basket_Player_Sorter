@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import dataStructureTrees.Color;
+import dataStructureTrees.RBNode;
 import dataStructureTrees.RedBlackTree;
 import model.Player;
 
@@ -64,7 +65,12 @@ class RedBlackTreeTest {
 	@Test
 	public void testDelete() {
 		setupScenario2();
-		rbTree.delete(22, null);
+		//rbTree.delete(22, null);
+		System.out.println(rbTree.getRoot().getVal());
+		System.out.println(rbTree.getRoot().getLeft().getVal());
+		System.out.println(rbTree.getRoot().getRight().getVal());
+		System.out.println(rbTree.getRoot().getLeft().getLeft().getVal());
+		rbTree.rbDelete(rbTree.searchRB(22, null));
 		assertNotEquals(rbTree.getRoot().getLeft().getVal(),22);
 	}
 
