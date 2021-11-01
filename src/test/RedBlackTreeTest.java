@@ -72,7 +72,7 @@ class RedBlackTreeTest {
 	@Test
 	public void testSearch() {
 		setupScenario3();
-		assertNotEquals(rbTree.search(12,null),new RBNode(12,null));
+		assertNotEquals(rbTree.search(12,null),new RBNode<Integer, Player>(12,null));
 	}
 
 }
